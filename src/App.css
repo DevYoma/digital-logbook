@@ -1,0 +1,11 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.app{
+  background: var(--primary-background);
+  color: var(--primary-color);
+  min-height: 100vh;
+}
