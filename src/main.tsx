@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import { Login, Register, ResetPassword } from './pages/index.ts';
+import { Login, NewPassword, Register, ResetPassword } from './pages/index.ts';
 
 const router = createBrowserRouter([
   {
@@ -21,6 +21,10 @@ const router = createBrowserRouter([
   {
     path: '/reset-password',
     element: <ResetPassword />
+  },
+  {
+    path: '/new-password',
+    element: <NewPassword />
   }
 ])
 

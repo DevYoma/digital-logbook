@@ -42,6 +42,7 @@ const Register = () => {
         email: formData.email,
         password: formData.password,
         options:{
+          emailRedirectTo: "http://localhost:5173/login",
           data: {
             studentName: formData.studentName,
             schoolName: formData.schoolName,
@@ -50,8 +51,9 @@ const Register = () => {
         }
       })
 
+      if (error) throw error;
       console.log(data);
-      alert("Check your email for the verification link")
+      alert("Check your email for the verification link") // route them to Login Page
     } catch (error) {
       alert(error);
       setLoading(false);

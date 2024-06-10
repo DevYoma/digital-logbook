@@ -1,10 +1,12 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import Logo from "../../atoms/Logo/Logo";
 import "./Login.scss";
 import { Link } from "react-router-dom";
 import { supabase } from "../../supabase/supabaseClient";
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     password: ""
@@ -27,19 +29,32 @@ const Login = () => {
 
     try {
       console.table(formData);
-      const {data, error} = await supabase.auth.signInWithPassword({
+      const {data, error } = await supabase.auth.signInWithPassword({
         email: formData.email,
         password: formData.password
       })
+      if(error) throw error
       console.log(data)
-      alert("Login successful")
+      // alert("Login Successful")
+      navigate("/");
     } catch (error) {
       setLoading(false);
-      alert(error)
+      alert("Oops! Something went wrong. Please try again");
+      console.log(error?.message)
     } finally {
       setLoading(false);
     }
   };
+
+    const getUserSession = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      console.log(user);
+    };
+    useEffect(() => {
+      getUserSession();
+    }, []); 
 
   return (
     <div className="login">
