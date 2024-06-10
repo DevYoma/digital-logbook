@@ -4,12 +4,23 @@ import App from './App.tsx'
 import './index.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { Login, NewPassword, Register, ResetPassword } from './pages/index.ts';
+import { UserContextProvider } from './context/UserAuthContext.tsx';
+import ProtectedRoute from './components/ProtectedRoute.tsx';
 
 const router = createBrowserRouter([
   {
-    path: '/',
-    element: <App />,
+    element: <ProtectedRoute />,
+    children: [
+      {
+        path: '/',
+        element: <App />
+      }
+    ]
   },
+  // {
+  //   path: '/',
+  //   element: <App />
+  // },
   {
     path: '/login',
     element: <Login />
@@ -30,6 +41,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <RouterProvider router={router}/>
+    <UserContextProvider>
+      <RouterProvider router={router}/>
+    </UserContextProvider>
   </React.StrictMode>,
 )

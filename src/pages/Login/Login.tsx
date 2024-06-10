@@ -1,11 +1,13 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useContext, useEffect, useState } from "react";
 import Logo from "../../atoms/Logo/Logo";
 import "./Login.scss";
 import { Link } from "react-router-dom";
 import { supabase } from "../../supabase/supabaseClient";
 import { useNavigate } from 'react-router-dom';
+import { UserAuthContext } from "../../context/UserAuthContext";
 
 const Login = () => {
+  const { setUserData } = useContext(UserAuthContext)
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
@@ -23,6 +25,19 @@ const Login = () => {
     })
   }
 
+  // useEffect(() => {
+  //   const getUserSession = async () => {
+  //     const { data: { user }, error } = await supabase.auth.getUser();
+  //     if(error){
+  //       return
+  //     }
+  //     setUserData(user)
+
+  //     console.log(user);
+  //   }
+  //   getUserSession();
+  // }, [])
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
@@ -35,6 +50,7 @@ const Login = () => {
       })
       if(error) throw error
       console.log(data)
+      setUserData(data.user);
       // alert("Login Successful")
       navigate("/");
     } catch (error) {
@@ -45,16 +61,6 @@ const Login = () => {
       setLoading(false);
     }
   };
-
-    const getUserSession = async () => {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      console.log(user);
-    };
-    useEffect(() => {
-      getUserSession();
-    }, []); 
 
   return (
     <div className="login">
