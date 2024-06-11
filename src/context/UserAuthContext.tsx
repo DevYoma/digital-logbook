@@ -16,7 +16,7 @@ type UserAuthContextType = {
 };
 
 export const UserAuthContext = createContext<UserAuthContextType>({
-  userData: null,
+  userData: null, //global
   setUserData: () => {},
   isAuth: false, 
   setIsAuth: () => {},
@@ -30,18 +30,10 @@ export const UserContextProvider = ({ children }: ChildProp) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const getUserSession = async () => {
-    // const { data: { user }, error } = await supabase.auth.getUser();
-    // if(error){
-    //   setIsAuth(false);
-    //   setUserData(null)
-    // }
-    // // console.log(user)
-    // setUserData(user)
-    // setIsAuth(true);  
 
      try {
       const { data: { user }, error } = await supabase.auth.getUser();
-
+      // console.log(error);
       if (error) {
         setIsAuth(false);
         setUserData(null);

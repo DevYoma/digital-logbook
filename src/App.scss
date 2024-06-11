@@ -1,0 +1,23 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.app{
+  background: var(--primary-background);
+  color: var(--primary-color);
+  min-height: 100vh;
+  // text-align: center;
+
+  &Header{
+    // border: 1px dashed grey;
+    justify-content: space-between;
+
+    @media screen and (max-width: 768px) {
+      width: 90%;
+      row-gap: 1rem;
+      flex-direction: column;
+    }
+  }
+}

@@ -1,4 +1,4 @@
-import { ChangeEvent, useContext, useEffect, useState } from "react";
+import { ChangeEvent, useContext, useState } from "react";
 import Logo from "../../atoms/Logo/Logo";
 import "./Login.scss";
 import { Link } from "react-router-dom";
@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { UserAuthContext } from "../../context/UserAuthContext";
 
 const Login = () => {
-  const { setUserData } = useContext(UserAuthContext)
+  const { setUserData, setIsAuth } = useContext(UserAuthContext)
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
@@ -25,19 +25,6 @@ const Login = () => {
     })
   }
 
-  // useEffect(() => {
-  //   const getUserSession = async () => {
-  //     const { data: { user }, error } = await supabase.auth.getUser();
-  //     if(error){
-  //       return
-  //     }
-  //     setUserData(user)
-
-  //     console.log(user);
-  //   }
-  //   getUserSession();
-  // }, [])
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
@@ -49,14 +36,16 @@ const Login = () => {
         password: formData.password
       })
       if(error) throw error
-      console.log(data)
-      setUserData(data.user);
-      // alert("Login Successful")
-      navigate("/");
+      // console.log(data)
+        setUserData(data.user);
+        setIsAuth(true)
+        navigate("/");
     } catch (error) {
       setLoading(false);
+      setIsAuth(false)
       alert("Oops! Something went wrong. Please try again");
       console.log(error?.message)
+      setUserData(null);
     } finally {
       setLoading(false);
     }

@@ -46,7 +46,8 @@ const Register = () => {
           data: {
             studentName: formData.studentName,
             schoolName: formData.schoolName,
-            department: formData.department
+            department: formData.department 
+            // add the empty fields here
           }
         }
       })

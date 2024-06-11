@@ -26,7 +26,7 @@ const NewPassword = () => {
         console.log(data);
         alert("Password updated successfully");
         navigate("/login")
-      } catch (error) {
+      } catch (error: any) {
         console.log(error);
         alert(error?.message)
         setLoading(false);
