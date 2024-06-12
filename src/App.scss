@@ -11,7 +11,8 @@
   // text-align: center;
 
   &Header{
-    // border: 1px dashed grey;
+    border: 1px dashed grey;
+    display: flex;
     justify-content: space-between;
 
     @media screen and (max-width: 768px) {

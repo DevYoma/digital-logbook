@@ -13,6 +13,8 @@ type UserAuthContextType = {
   setIsAuth: (isAuth: boolean) => void;
   isLoading: boolean;
   setIsLoading: (isLoading: boolean) => void;
+  // redirectURL: string;
+  // setRedirectURL: (url: string) => void;
 };
 
 export const UserAuthContext = createContext<UserAuthContextType>({
@@ -22,12 +24,15 @@ export const UserAuthContext = createContext<UserAuthContextType>({
   setIsAuth: () => {},
   isLoading: true,
   setIsLoading: () => {},
+  // redirectURL:"",
+  // setRedirectURL: () => {}
 });
 
 export const UserContextProvider = ({ children }: ChildProp) => {
   const [userData, setUserData] = useState<User | null>(null);
   const [isAuth, setIsAuth] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  // const [redirectURL, setRedirectURL] = useState('');
 
   const getUserSession = async () => {
 
@@ -36,7 +41,7 @@ export const UserContextProvider = ({ children }: ChildProp) => {
       // console.log(error);
       if (error) {
         setIsAuth(false);
-        setUserData(null);
+        setUserData(null);  
       } else {
         setUserData(user);
         setIsAuth(true); // Update isAuth based on user presence
@@ -51,7 +56,16 @@ export const UserContextProvider = ({ children }: ChildProp) => {
   }, [])
 
   return (
-    <UserAuthContext.Provider value={{ userData, setUserData, isAuth, setIsAuth, isLoading, setIsLoading }}>
+    <UserAuthContext.Provider
+      value={{
+        userData,
+        setUserData,
+        isAuth,
+        setIsAuth,
+        isLoading,
+        setIsLoading,
+      }}
+    >
       {children}
     </UserAuthContext.Provider>
   );

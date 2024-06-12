@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import Logo from "../../atoms/Logo/Logo"
 import { UserAuthContext } from "../../context/UserAuthContext";
 import { supabase } from "../../supabase/supabaseClient";
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { User } from "@supabase/supabase-js";
 
 type ProfileData = {
@@ -89,6 +89,8 @@ const Profile = () => {
 
    console.log("IT program duration updated successfully:", data);
    alert("IT program duration updated successfully!"); // User-friendly feedback
+  //  window.location.reload() 
+    // navigate("/")
  } catch (error) {
    console.error("Error updating IT program duration:", error);
    alert(`Error: ${error?.message}`); // Informative error message
@@ -174,7 +176,9 @@ const Profile = () => {
               <input type="number" id="custom-duration" name="custom-duration" min="1" />
             </div>
           </div>
-        </form>
+        </form> 
+
+        <Link to={"/"}>Go to Home Page</Link> <br />
 
         <button onClick={handleUserDataUpdate}>Update</button>
 
