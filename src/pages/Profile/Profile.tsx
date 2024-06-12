@@ -69,37 +69,31 @@ const Profile = () => {
 
   // HANDLE USER DATA UPDATE
   const handleUserDataUpdate = async () => {
- try {
-   const userFromSB = supabase.auth.getUser(); // Get currently logged-in user
+    try {
+      const { data, error } = await supabase.auth.updateUser({
+          data: {
+            duration: profileData.duration,
+            studentName: profileData.name,
+            department: profileData.department, 
+            schoolName: profileData.schoolName
+          }
+      });
 
-   if (!userFromSB) {
-     throw new Error("No logged-in user found. Please sign in.");
-   }
+      if (error) throw error;
 
-   const { data, error } = await supabase.auth.updateUser({
-      data: {
-        duration: profileData.duration,
-        studentName: profileData.name,
-        department: profileData.department, 
-        schoolName: profileData.schoolName
-      }
-   });
-
-   if (error) throw error;
-
-   console.log("IT program duration updated successfully:", data);
-   alert("IT program duration updated successfully!"); // User-friendly feedback
-   setUserData(data.user);
-   navigate("/")
- } catch (error) {
-   console.error("Error updating IT program duration:", error);
-   alert(`Error: ${error?.message}`); // Informative error message
- } finally {
-   // Optional actions after success or failure (e.g., reset loading state)
- }
+      console.log("IT program duration updated successfully:", data);
+      alert("IT program duration updated successfully!"); // User-friendly feedback
+      setUserData(data.user);
+      navigate("/")
+    } catch (error) {
+      console.error("Error updating IT program duration:", error);
+      alert(`Error: ${error?.message}`); // Informative error message
+    } finally {
+      // Optional actions after success or failure (e.g., reset loading state)
+    }
   }
 
-  // console.log(userData?.user_metadata);
+  // console.log(userData);
 
   return (
     <div className="profile">

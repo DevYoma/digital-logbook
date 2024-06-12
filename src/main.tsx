@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import { Login, NewPassword, Profile, Register, ResetPassword } from './pages/index.ts';
+import { Login, LogsPage, NewPassword, Profile, Register, ResetPassword } from './pages/index.ts';
 import { UserContextProvider } from './context/UserAuthContext.tsx';
 import ProtectedRoute from './components/ProtectedRoute.tsx';
 
@@ -18,6 +18,10 @@ const router = createBrowserRouter([
       {
         path: '/profile',
         element: <Profile />
+      },
+      {
+        path: '/logs',
+        element: <LogsPage />
       }
     ]
   },

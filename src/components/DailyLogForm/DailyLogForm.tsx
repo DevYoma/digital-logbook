@@ -44,6 +44,7 @@ const DailyLogForm = () => {
 
       console.log("Daily log entry submitted successfully!");
       alert("Daily log entry submitted successfully!");
+      setDailyLogText("");
       // Optionally clear the form or display a success message
     } catch (error) {
       console.error("Error submitting daily log:", error);
@@ -57,7 +58,7 @@ const DailyLogForm = () => {
   maxDate.setMonth(maxDate.getMonth() + 3); // Add 3 months to current date
   const maxDateStr = maxDate.toISOString().slice(0, 10);
 
-  console.log(maxDateStr);
+  // console.log(maxDateStr);
 
   return (
     <div className="dailyLogForm">
@@ -90,6 +91,8 @@ const DailyLogForm = () => {
         <button type="submit">Submit Daily Log</button>{" "}
         {/* Integrate with Supabase submission */}
       </form>
+
+
     </div>
   );
 }

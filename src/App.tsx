@@ -35,10 +35,13 @@ function App() {
       <h2>Hello {userData?.user_metadata?.studentName}</h2>
       <p>College: {userData?.user_metadata?.schoolName}</p>
       <p>Department: {userData?.user_metadata?.department}</p>
+      <p>Email: {userData?.user_metadata?.email}</p>
 
       <div>
         <DailyLogForm />
       </div>
+
+      <Link to="/logs">Logs Page</Link>
     </div>
   );
 }
