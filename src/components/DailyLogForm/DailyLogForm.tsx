@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./DailyLogForm.scss";
+import { supabase } from "../../supabase/supabaseClient";
 
 const DailyLogForm = () => {
   const [dailyLogText, setDailyLogText] = useState("");
@@ -31,6 +32,24 @@ const DailyLogForm = () => {
       alert("Text field cannot be empty");
       return;
     }
+
+    const data = {
+      text: dailyLogText,
+      date: selectedDate,
+    };
+
+    try {
+      const { error } = await supabase.from("dailyLogs").insert(data);
+      if (error) throw error;
+
+      console.log("Daily log entry submitted successfully!");
+      alert("Daily log entry submitted successfully!");
+      // Optionally clear the form or display a success message
+    } catch (error) {
+      console.error("Error submitting daily log:", error);
+      alert("Error submitting daily log entry")
+      // Optionally display an error message to the user
+    }
   };
 
     // Calculate maximum date three months from now
@@ -38,13 +57,15 @@ const DailyLogForm = () => {
   maxDate.setMonth(maxDate.getMonth() + 3); // Add 3 months to current date
   const maxDateStr = maxDate.toISOString().slice(0, 10);
 
+  console.log(maxDateStr);
+
   return (
     <div className="dailyLogForm">
       {/* <h3>Daily Log for {currentDate.toLocaleDateString()}</h3> */}
       <h3>Daily Log for {selectedDate}</h3>
       <form onSubmit={handleDailyLogFormSubmission}>
         <input 
-            type="date" 
+            type="date"
             value={selectedDate} 
             onChange={handleDateChange} 
             // Set maximum date (adjust as needed)

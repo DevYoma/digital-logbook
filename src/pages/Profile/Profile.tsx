@@ -89,8 +89,8 @@ const Profile = () => {
 
    console.log("IT program duration updated successfully:", data);
    alert("IT program duration updated successfully!"); // User-friendly feedback
-  //  window.location.reload() 
-    // navigate("/")
+   setUserData(data.user);
+   navigate("/")
  } catch (error) {
    console.error("Error updating IT program duration:", error);
    alert(`Error: ${error?.message}`); // Informative error message
@@ -99,7 +99,7 @@ const Profile = () => {
  }
   }
 
-  // console.log(profileData);
+  // console.log(userData?.user_metadata);
 
   return (
     <div className="profile">
