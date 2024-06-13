@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, {  useContext, useState } from "react";
 import "./DailyLogForm.scss";
 import { supabase } from "../../supabase/supabaseClient";
+import { useCheckExistingEntry } from "../../hooks/useCheckExistingEntry";
+import { UserAuthContext } from "../../context/UserAuthContext";
+import { useNavigate } from "react-router-dom";
 
 const DailyLogForm = () => {
   const [dailyLogText, setDailyLogText] = useState("");
@@ -8,6 +11,13 @@ const DailyLogForm = () => {
   const [selectedDate, setSelectedDate] = useState(
     new Date().toISOString().slice(0, 10)
   ); // Initial date in YYYY-MM-DD format
+  const { userData } = useContext(UserAuthContext);
+  const navigate = useNavigate();
+
+    const { existingEntry, isLoading, error } = useCheckExistingEntry(
+      userData,
+      selectedDate
+    );
 
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setDailyLogText(e.target.value);
@@ -38,17 +48,42 @@ const DailyLogForm = () => {
       date: selectedDate,
     };
 
+    if (isLoading) {
+      console.log("Checking for existing entry...");
+      return; // Prevent submission while data is being fetched
+    }
+
+    if (error) {
+      //  console.error("Error checking existing entry:", error);
+      //  alert("Error checking for existing entry!");
+      //  return; // Handle error gracefully
+      console.log("No data matched");
+    }
+
+    // Check for duplicate using .find
+    const duplicateEntry = existingEntry?.find((entry: any) => {
+      // Compare properties to identify duplicates (e.g., text and date)
+      return entry.user_id === userData?.id && entry.date === selectedDate;
+    });
+
+    if (duplicateEntry) {
+      console.error("Error: You can only submit one log per day.");
+      alert("You can only submit one log entry per day!");
+      return; // Prevent submission if duplicate exists
+    }
+
     try {
       const { error } = await supabase.from("dailyLogs").insert(data);
       if (error) throw error;
 
       console.log("Daily log entry submitted successfully!");
       alert("Daily log entry submitted successfully!");
+      navigate("/logs")
       setDailyLogText("");
       // Optionally clear the form or display a success message
     } catch (error) {
       console.error("Error submitting daily log:", error);
-      alert("Error submitting daily log entry")
+      alert("Error submitting daily log entry");
       // Optionally display an error message to the user
     }
   };
@@ -80,6 +115,7 @@ const DailyLogForm = () => {
           onChange={handleTextChange}
           rows={10}
           cols={50}
+          required
           placeholder="Enter your daily log entry here..."
         />
         {/* <p>Date: {currentDate.toLocaleDateString()}</p>{" "} */}

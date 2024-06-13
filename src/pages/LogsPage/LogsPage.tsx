@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useContext, useEffect, useState } from "react";
 import "./LogsPage.scss";
 import { supabase } from "../../supabase/supabaseClient";
@@ -37,7 +38,8 @@ const LogsPage = () => {
       {dailyLogs.map((dailyLog) => (
         <div key={dailyLog.id} className="dailyLogItem">
           <p>Date: {dailyLog.date}</p>
-          <p>{dailyLog.text}</p>
+          <p>Log: {dailyLog.text}</p>
+          <p>UserId: {dailyLog.user_id}</p>
         </div>
       ))}
       {dailyLogs.length === 0 && (
