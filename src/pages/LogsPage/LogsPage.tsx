@@ -3,43 +3,113 @@ import { useContext, useEffect, useState } from "react";
 import "./LogsPage.scss";
 import { supabase } from "../../supabase/supabaseClient";
 import { UserAuthContext } from "../../context/UserAuthContext";
+import { ExistingEntry } from "../../types/appTypes";
 
 const LogsPage = () => {
-    const [dailyLogs, setDailyLogs] = useState<any[]>([]);
+    const [dailyLogs, setDailyLogs] = useState<ExistingEntry[]>([]);
     const { userData } = useContext(UserAuthContext);
 
     // console.log(userData);
 
+    // Fetch DailyLogs from Supabase
+    const fetchDailyLogs = async () => {
+      try {
+          const { data, error } = await supabase
+              .from('dailyLogs')
+              .select('*')
+              .eq('user_id', userData?.id)
+              .order('date', { ascending: false }); // Order by date (latest first)
+      
+          if (error) throw error;
+      
+          setDailyLogs(data);
+      } catch (error) {
+          console.log(error);
+          setDailyLogs([])
+      }
+  };
     useEffect(() => {
-        const fetchDailyLogs = async () => {
-        try {
-            const { data, error } = await supabase
-                .from('dailyLogs')
-                .select('*')
-                .eq('user_id', userData?.id)
-                .order('date', { ascending: false }); // Order by date (latest first)
-        
-            if (error) throw error;
-        
-            setDailyLogs(data);
-        } catch (error) {
-            console.log(error);
-            setDailyLogs([])
-        }
-
-    };
-
     fetchDailyLogs();
   }, []);
+
+  // console.log(dailyLogs);
+
+  // DELETE LOG ENTRY
+  const handleDeleteLogEntry = async (logEntryId: string) => {
+    try {
+      const { error } = await supabase
+        .from('dailyLogs')
+        .delete()
+        .eq('id', logEntryId); // Replace 'id' with your actual primary key
+
+      if (error) throw error;
+
+      console.log("Log entry deleted successfully!");
+       // Local filtering for UI update
+      setDailyLogs(prevEntries => prevEntries.filter(entry => entry.id !== logEntryId));
+
+      // Refetch DailyLogs
+      fetchDailyLogs();
+
+      // Optional: Re-fetch data to update the UI after deletion (discussed later)
+    } catch (error) {
+      console.error("Error deleting log entry:", error);
+      alert("Error deleting log entry!"); // Inform the user
+    }
+  };
+
+  // EDIT LOG ENTRY
+//  const handleUpdateLogEntry = async (updatedData: ExistingEntry) => {
+//    try {
+//      const { data, error } = await supabase
+//        .from("dailyLogs")
+//        .update({ ...updatedData }) // Update all relevant data fields
+//        .eq("id", updatedData.id);
+
+//      if (error) throw error;
+
+//      console.log("Log entry updated successfully!");
+
+//      // Update local state with the updated entry
+//      setDailyLogs((prevEntries) =>
+//        prevEntries.map((entry: ExistingEntry) =>
+//          entry.id === updatedData.id ? updatedData : entry
+//        )
+//      );
+
+//      // Optional: Close edit form
+//      setSelectedLogEntry(null); // Assuming you have UI for opening/closing the form
+
+//      // Optional: Re-fetch data (consider based on needs)
+//      // await fetchLogEntries(); // You can re-fetch all entries here if needed
+//    } catch (error) {
+//      console.error("Error updating log entry:", error);
+//      alert("Error updating log entry!"); // Inform the user
+//    }
+//  };
 
   return (
     <div className="dailyLogList">
       <h2>Your Daily Logs</h2>
-      {dailyLogs.map((dailyLog) => (
-        <div key={dailyLog.id} className="dailyLogItem">
+      {dailyLogs.map((dailyLog: ExistingEntry) => (
+        <div
+          key={dailyLog.id}
+          className="dailyLogItem"
+          style={{ border: "1px dashed black", marginBottom: "1rem" }}
+        >
           <p>Date: {dailyLog.date}</p>
           <p>Log: {dailyLog.text}</p>
           <p>UserId: {dailyLog.user_id}</p>
+          <button
+            // onClick={() => handleUpdateLogEntry(dailyLog)}
+            style={{ marginRight: "1rem" }}
+          >
+            Edit
+          </button>
+         
+          <button onClick={() => handleDeleteLogEntry(dailyLog.id)}>
+            Delete
+          </button>
         </div>
       ))}
       {dailyLogs.length === 0 && (

@@ -1,23 +1,24 @@
-import React, {  useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import "./DailyLogForm.scss";
 import { supabase } from "../../supabase/supabaseClient";
 import { useCheckExistingEntry } from "../../hooks/useCheckExistingEntry";
 import { UserAuthContext } from "../../context/UserAuthContext";
 import { useNavigate } from "react-router-dom";
+import { ExistingEntry } from "../../types/appTypes";
 
 const DailyLogForm = () => {
   const [dailyLogText, setDailyLogText] = useState("");
-//   const [currentDate] = useState(new Date());
+  //   const [currentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(
     new Date().toISOString().slice(0, 10)
   ); // Initial date in YYYY-MM-DD format
   const { userData } = useContext(UserAuthContext);
   const navigate = useNavigate();
 
-    const { existingEntry, isLoading, error } = useCheckExistingEntry(
-      userData,
-      selectedDate
-    );
+  const { existingEntry, isLoading, error } = useCheckExistingEntry(
+    userData,
+    selectedDate
+  );
 
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setDailyLogText(e.target.value);
@@ -25,12 +26,6 @@ const DailyLogForm = () => {
 
   const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedDate(e.target.value);
-  };
-
-  const handleEditDate = () => {
-    // Implement logic to open a date picker or allow manual date input
-    // (This is optional if you want to allow date editing later)
-    alert("Coming soon");
   };
 
   const handleDailyLogFormSubmission = async (
@@ -54,14 +49,12 @@ const DailyLogForm = () => {
     }
 
     if (error) {
-      //  console.error("Error checking existing entry:", error);
-      //  alert("Error checking for existing entry!");
-      //  return; // Handle error gracefully
+      // Data being entered does not match any in the DB
       console.log("No data matched");
     }
 
     // Check for duplicate using .find
-    const duplicateEntry = existingEntry?.find((entry: any) => {
+    const duplicateEntry = existingEntry?.find((entry: ExistingEntry) => {
       // Compare properties to identify duplicates (e.g., text and date)
       return entry.user_id === userData?.id && entry.date === selectedDate;
     });
@@ -78,7 +71,7 @@ const DailyLogForm = () => {
 
       console.log("Daily log entry submitted successfully!");
       alert("Daily log entry submitted successfully!");
-      navigate("/logs")
+      navigate("/logs");
       setDailyLogText("");
       // Optionally clear the form or display a success message
     } catch (error) {
@@ -88,7 +81,7 @@ const DailyLogForm = () => {
     }
   };
 
-    // Calculate maximum date three months from now
+  // Calculate maximum date three months from now
   const maxDate = new Date();
   maxDate.setMonth(maxDate.getMonth() + 3); // Add 3 months to current date
   const maxDateStr = maxDate.toISOString().slice(0, 10);
@@ -100,16 +93,14 @@ const DailyLogForm = () => {
       {/* <h3>Daily Log for {currentDate.toLocaleDateString()}</h3> */}
       <h3>Daily Log for {selectedDate}</h3>
       <form onSubmit={handleDailyLogFormSubmission}>
-        <input 
-            type="date"
-            value={selectedDate} 
-            onChange={handleDateChange} 
-            // Set maximum date (adjust as needed)
-            // max={new Date().toISOString().slice(0, 10)}
-            max={maxDateStr}
-            style={{ marginBottom: "1rem" }}
-        /> <br />
-
+        <input
+          type="date"
+          value={selectedDate}
+          onChange={handleDateChange}
+          max={maxDateStr}
+          style={{ marginBottom: "1rem" }}
+        />{" "}
+        <br />
         <textarea
           value={dailyLogText}
           onChange={handleTextChange}
@@ -120,17 +111,10 @@ const DailyLogForm = () => {
         />
         {/* <p>Date: {currentDate.toLocaleDateString()}</p>{" "} */}
         <p>Date: {selectedDate}</p>{" "}
-        <button onClick={handleEditDate} disabled={true}>
-          Edit Date (Coming Soon)
-        </button>{" "}
-        {/* Optional: Disabled button for future date editing */}
         <button type="submit">Submit Daily Log</button>{" "}
-        {/* Integrate with Supabase submission */}
       </form>
-
-
     </div>
   );
-}
+};
 
-export default DailyLogForm
+export default DailyLogForm;

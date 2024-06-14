@@ -2,11 +2,15 @@
 import { User } from "@supabase/supabase-js";
 import { useEffect, useState } from "react";
 import { supabase } from "../supabase/supabaseClient";
+import { ExistingEntryOne } from "../types/appTypes";
 
-export const useCheckExistingEntry = (userData: User | any, selectedDate: string) => {
-  const [existingEntry, setExistingEntry] = useState<any>([]);
+export const useCheckExistingEntry = (
+  userData: User | any,
+  selectedDate: string
+) => {
+  const [existingEntry, setExistingEntry] = useState<ExistingEntryOne[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -18,13 +22,13 @@ export const useCheckExistingEntry = (userData: User | any, selectedDate: string
           .from("dailyLogs")
           .select("*")
           .eq("user_id", userData?.id)
-          .eq("date", selectedDate)
+          .eq("date", selectedDate);
         //   .single();
 
         if (error) throw error;
 
         setExistingEntry(data); // Store the existing entry if found
-      } catch (error) {
+      } catch (error: unknown) {
         console.error("Error fetching existing entry:", error);
         setError(error); // Set error state for handling
       } finally {
