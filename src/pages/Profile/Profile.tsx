@@ -87,7 +87,6 @@ const Profile = () => {
       navigate("/")
     } catch (error) {
       console.error("Error updating IT program duration:", error);
-      // @ts-expect-error"
       alert(`Error: ${error?.message}`); // Informative error message
     } finally {
       // Optional actions after success or failure (e.g., reset loading state)

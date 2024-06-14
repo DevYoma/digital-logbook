@@ -5,8 +5,10 @@ import { Link } from "react-router-dom";
 import { supabase } from "../../supabase/supabaseClient";
 import { useNavigate } from 'react-router-dom';
 import { UserAuthContext } from "../../context/UserAuthContext";
+import useLoggedInRedirect from "../../hooks/useLoggedInRedirect";
 
 const Login = () => {
+  useLoggedInRedirect();
   const { setUserData, setIsAuth } = useContext(UserAuthContext)
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -50,6 +52,8 @@ const Login = () => {
       setLoading(false);
     }
   };
+
+  // console.log(userData);
 
   return (
     <div className="login">

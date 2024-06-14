@@ -1,10 +1,14 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./Register.scss";
 import Logo from "../../atoms/Logo/Logo";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "../../supabase/supabaseClient";
+import { UserAuthContext } from "../../context/UserAuthContext";
+import useLoggedInRedirect from "../../hooks/useLoggedInRedirect";
 
 const Register = () => {
+  useLoggedInRedirect();
+  const { userData, isAuth } = useContext(UserAuthContext)
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -14,6 +18,14 @@ const Register = () => {
     department: ""
   });
   const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
+
+    useEffect(() => {
+    if(isAuth && userData !== null){
+      navigate("/") 
+    }
+  }, [navigate, userData])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;

@@ -12,40 +12,36 @@ const router = createBrowserRouter([
     element: <ProtectedRoute />,
     children: [
       {
-        path: '/',
-        element: <App />
-      }, 
-      {
-        path: '/profile',
-        element: <Profile />
+        path: "/",
+        element: <App />,
       },
       {
-        path: '/logs',
-        element: <LogsPage />
-      }
-    ]
-  },
-  // {
-  //   path: '/',
-  //   element: <App />
-  // },
-  {
-    path: '/login',
-    element: <Login />
+        path: "/profile",
+        element: <Profile />,
+      },
+      {
+        path: "/logs",
+        element: <LogsPage />,
+      },
+    ],
   },
   {
-    path: '/register',
-    element: <Register />
+    path: "/login",
+    element: <Login />,
   },
   {
-    path: '/reset-password',
-    element: <ResetPassword />
+    path: "/register",
+    element: <Register />,
   },
   {
-    path: '/new-password',
-    element: <NewPassword />
-  }
-])
+    path: "/reset-password",
+    element: <ResetPassword />,
+  },
+  {
+    path: "/new-password",
+    element: <NewPassword />,
+  },
+]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

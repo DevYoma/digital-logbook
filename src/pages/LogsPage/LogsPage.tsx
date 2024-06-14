@@ -8,7 +8,6 @@ import { ExistingEntry } from "../../types/appTypes";
 const LogsPage = () => {
     const [dailyLogs, setDailyLogs] = useState<ExistingEntry[]>([]);
     const { userData } = useContext(UserAuthContext);
-
     // console.log(userData);
 
     // Fetch DailyLogs from Supabase
@@ -58,36 +57,6 @@ const LogsPage = () => {
     }
   };
 
-  // EDIT LOG ENTRY
-//  const handleUpdateLogEntry = async (updatedData: ExistingEntry) => {
-//    try {
-//      const { data, error } = await supabase
-//        .from("dailyLogs")
-//        .update({ ...updatedData }) // Update all relevant data fields
-//        .eq("id", updatedData.id);
-
-//      if (error) throw error;
-
-//      console.log("Log entry updated successfully!");
-
-//      // Update local state with the updated entry
-//      setDailyLogs((prevEntries) =>
-//        prevEntries.map((entry: ExistingEntry) =>
-//          entry.id === updatedData.id ? updatedData : entry
-//        )
-//      );
-
-//      // Optional: Close edit form
-//      setSelectedLogEntry(null); // Assuming you have UI for opening/closing the form
-
-//      // Optional: Re-fetch data (consider based on needs)
-//      // await fetchLogEntries(); // You can re-fetch all entries here if needed
-//    } catch (error) {
-//      console.error("Error updating log entry:", error);
-//      alert("Error updating log entry!"); // Inform the user
-//    }
-//  };
-
   return (
     <div className="dailyLogList">
       <h2>Your Daily Logs</h2>
@@ -100,13 +69,14 @@ const LogsPage = () => {
           <p>Date: {dailyLog.date}</p>
           <p>Log: {dailyLog.text}</p>
           <p>UserId: {dailyLog.user_id}</p>
-          <button
+          {/* <button
             // onClick={() => handleUpdateLogEntry(dailyLog)}
+            onClick={() => handleEditModal(dailyLog)}
             style={{ marginRight: "1rem" }}
           >
             Edit
-          </button>
-         
+          </button> */}
+
           <button onClick={() => handleDeleteLogEntry(dailyLog.id)}>
             Delete
           </button>
