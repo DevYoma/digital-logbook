@@ -3,8 +3,10 @@ import "./NewPassword.scss";
 import { supabase } from '../../supabase/supabaseClient';
 import Logo from '../../atoms/Logo/Logo';
 import { useNavigate } from 'react-router-dom';
+import useLoggedInRedirect from '../../hooks/useLoggedInRedirect';
 
 const NewPassword = () => {
+    useLoggedInRedirect();
     const navigate = useNavigate();
     const [newPassword, setNewPassword] = useState("");
     const [confirmNewPassword, setCofirmNewPassword] = useState("");

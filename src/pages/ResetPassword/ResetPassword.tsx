@@ -3,8 +3,10 @@ import { useState } from "react";
 import Logo from "../../atoms/Logo/Logo";
 import "./ResetPassword.scss";
 import { supabase } from "../../supabase/supabaseClient";
+import useLoggedInRedirect from "../../hooks/useLoggedInRedirect";
 
 const ResetPassword = () => {
+  useLoggedInRedirect();
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | any>("")

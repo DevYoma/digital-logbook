@@ -82,16 +82,27 @@ const DailyLogForm = () => {
   };
 
   // Calculate maximum date three months from now
+  // const minDate = userData?.user_metadata?.startDate
+  
   const maxDate = new Date();
   maxDate.setMonth(maxDate.getMonth() + 3); // Add 3 months to current date
   const maxDateStr = maxDate.toISOString().slice(0, 10);
-
   // console.log(maxDateStr);
+
+  // console.log(userData?.user_metadata?.startDate);
+
+  const disableUntilDurationIsSet =
+    userData?.user_metadata?.duration === undefined;
 
   return (
     <div className="dailyLogForm">
       {/* <h3>Daily Log for {currentDate.toLocaleDateString()}</h3> */}
       <h3>Daily Log for {selectedDate}</h3>
+      {disableUntilDurationIsSet && (
+        <p style={{ color: "red" }}>
+          Please update your profile data to get access to the form
+        </p>
+      )}
       <form onSubmit={handleDailyLogFormSubmission}>
         <input
           type="date"
@@ -99,6 +110,7 @@ const DailyLogForm = () => {
           onChange={handleDateChange}
           max={maxDateStr}
           style={{ marginBottom: "1rem" }}
+          disabled={disableUntilDurationIsSet}
         />{" "}
         <br />
         <textarea
@@ -108,10 +120,13 @@ const DailyLogForm = () => {
           cols={50}
           required
           placeholder="Enter your daily log entry here..."
+          disabled={disableUntilDurationIsSet}
         />
         {/* <p>Date: {currentDate.toLocaleDateString()}</p>{" "} */}
         <p>Date: {selectedDate}</p>{" "}
-        <button type="submit">Submit Daily Log</button>{" "}
+        <button type="submit" disabled={disableUntilDurationIsSet}>
+          Submit Daily Log
+        </button>{" "}
       </form>
     </div>
   );

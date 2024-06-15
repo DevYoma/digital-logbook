@@ -11,6 +11,7 @@ type ProfileData = {
   schoolName: string;
   department: string;
   duration: string;
+  startDate: Date;
 }
 
 const Profile = () => {
@@ -23,7 +24,8 @@ const Profile = () => {
     email: "", 
     schoolName: "", 
     department: "", 
-    duration: "0"
+    duration: "0",
+    startDate: "",
   })
 
   
@@ -33,7 +35,8 @@ const Profile = () => {
       name: userData?.user_metadata?.studentName || "",
       schoolName: userData?.user_metadata?.schoolName || "",
       department: userData?.user_metadata?.department || "",
-      duration: userData?.user_metadata?.duration || "", // Assuming IT duration in nested object
+      duration: userData?.user_metadata?.duration || "", 
+      startDate: userData?.user_metadata?.startDate || ""
     };
   };
 
@@ -44,7 +47,7 @@ const Profile = () => {
     }
   }, [userData])
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
     const name = e.target.name;
 
@@ -69,12 +72,45 @@ const Profile = () => {
 
   // HANDLE USER DATA UPDATE
   const handleUserDataUpdate = async () => {
+    if (!profileData.name) {
+      alert("Please enter a valid response for the Name field");
+      return;
+    }
+
+    if (!profileData.email) {
+      alert("Please enter a valid response for the Email field");
+      return;
+    }
+
+    if (!profileData.schoolName) {
+      alert("Please enter a valid response for the School field");
+      return;
+    }
+
+    if (!profileData.department) {
+      alert("Please enter a valid response for the Department field");
+      return;
+    }
+
+    // Check for both empty string and default duration
+    if (!profileData.duration || profileData.duration === "0") {
+      alert("Duration is required");
+      return;
+    }
+
+    if (!profileData.startDate) {
+      alert("Start date is required");
+      return;
+    }
+
+    console.log(profileData);
     try {
       const { data, error } = await supabase.auth.updateUser({
           data: {
             duration: profileData.duration,
+            startDate: profileData.startDate,
             studentName: profileData.name,
-            department: profileData.department, 
+            department: profileData.department,
             schoolName: profileData.schoolName
           }
       });
@@ -82,7 +118,7 @@ const Profile = () => {
       if (error) throw error;
 
       console.log("IT program duration updated successfully:", data);
-      alert("IT program duration updated successfully!"); // User-friendly feedback
+      alert("IT data updated successfully!"); // User-friendly feedback
       setUserData(data.user);
       navigate("/")
     } catch (error) {
@@ -146,6 +182,7 @@ const Profile = () => {
                 type="text" 
                 id="department" 
                 name="department" 
+                required
                 value={profileData.department}
                 onChange={handleChange}
               />
@@ -156,6 +193,7 @@ const Profile = () => {
               <select 
                 id="it-duration" 
                 name="duration"
+                required
                 value={profileData.duration}
                 onChange={handleChange}
               >
@@ -166,9 +204,21 @@ const Profile = () => {
             </div>
 
             <div className="profileFormDiv">
+              <label htmlFor="startdate">Start Date</label>
+              <input 
+                type="date" 
+                name="startDate" 
+                id="startdate" 
+                required
+                value={profileData.startDate}
+                onChange={handleChange}
+              />
+            </div>
+
+            {/* <div className="profileFormDiv">
               <label htmlFor="custom-duration">Custom Duration (Optional):</label>
               <input type="number" id="custom-duration" name="custom-duration" min="1" />
-            </div>
+            </div> */}
           </div>
         </form> 
 
