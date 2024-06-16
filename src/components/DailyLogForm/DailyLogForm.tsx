@@ -84,10 +84,11 @@ const DailyLogForm = () => {
   // Calculate maximum date three months from now
   // const minDate = userData?.user_metadata?.startDate
   
-  const maxDate = new Date();
-  maxDate.setMonth(maxDate.getMonth() + 3); // Add 3 months to current date
+  const maxDate = new Date(userData?.user_metadata?.startDate);
+  // const maxDate = new Date();
+  maxDate.setMonth(maxDate.getMonth() + Number(userData?.user_metadata?.duration)); // Add 3 months to current date
   const maxDateStr = maxDate.toISOString().slice(0, 10);
-  // console.log(maxDateStr);
+  // console.log(maxDate);
 
   // console.log(userData?.user_metadata?.startDate);
 
@@ -108,6 +109,7 @@ const DailyLogForm = () => {
           type="date"
           value={selectedDate}
           onChange={handleDateChange}
+          min={userData?.user_metadata?.startDate}
           max={maxDateStr}
           style={{ marginBottom: "1rem" }}
           disabled={disableUntilDurationIsSet}
