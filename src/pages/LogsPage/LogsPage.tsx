@@ -67,7 +67,9 @@ const LogsPage = () => {
           style={{ border: "1px dashed black", marginBottom: "1rem" }}
         >
           <p>Date: {dailyLog.date}</p>
-          <p>Log: {dailyLog.text}</p>
+          {/* <p>Log: {dailyLog.text}</p> */}
+          <p>Log</p>
+          <pre>{dailyLog.text}</pre>
           <p>UserId: {dailyLog.user_id}</p>
           {/* <button
             // onClick={() => handleUpdateLogEntry(dailyLog)}
