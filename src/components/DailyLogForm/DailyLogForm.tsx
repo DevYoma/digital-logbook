@@ -80,16 +80,21 @@ const DailyLogForm = () => {
       // Optionally display an error message to the user
     }
   };
-
-  // Calculate maximum date three months from now
-  // const minDate = userData?.user_metadata?.startDate
   
-  const maxDate = new Date(userData?.user_metadata?.startDate);
-  // const maxDate = new Date();
-  maxDate.setMonth(maxDate.getMonth() + Number(userData?.user_metadata?.duration)); // Add 3 months to current date
-  const maxDateStr = maxDate.toISOString().slice(0, 10);
-  // console.log(maxDate);
 
+  let signInDate;
+
+  if(userData?.user_metadata?.startDate === undefined && userData?.user_metadata?.duration === undefined){
+    signInDate = new Date();
+    signInDate.setMonth(signInDate.getMonth() + 1);
+  }else{
+    signInDate = new Date(userData?.user_metadata?.startDate)
+    signInDate.setMonth(signInDate.getMonth() + Number(userData?.user_metadata?.duration))
+  }
+
+  const maxDateStr = signInDate?.toISOString()?.slice(0, 10);
+
+  // console.log(maxDate);
   // console.log(userData?.user_metadata?.startDate);
 
   const disableUntilDurationIsSet =
@@ -109,7 +114,7 @@ const DailyLogForm = () => {
           type="date"
           value={selectedDate}
           onChange={handleDateChange}
-          min={userData?.user_metadata?.startDate}
+          min={userData?.user_metadata?.startDate !== undefined ? userData?.user_metadata?.startDate : null}
           max={maxDateStr}
           style={{ marginBottom: "1rem" }}
           disabled={disableUntilDurationIsSet}

@@ -4,15 +4,7 @@ import { UserAuthContext } from "../../context/UserAuthContext";
 import { supabase } from "../../supabase/supabaseClient";
 import { Link, useNavigate } from 'react-router-dom';
 import { User } from "@supabase/supabase-js";
-
-type ProfileData = {
-  name: string;
-  email: string;
-  schoolName: string;
-  department: string;
-  duration: string;
-  startDate: Date | unknown;
-}
+import { ProfileData } from "../../types/appTypes";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -226,7 +218,8 @@ const Profile = () => {
         </form>
         <Link to={"/"}>Go to Home Page</Link> <br />
         <button onClick={handleUserDataUpdate} disabled={!isFormDirty}>Update</button>
-        <button onClick={handleLogout}>Logout</button>
+        <button onClick={handleLogout}>Logout</button> <br />
+        <button onClick={() => navigate("/payment")}>Pay via Paystack</button>
       </div>
     </div>
   );

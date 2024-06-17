@@ -13,7 +13,7 @@ const useLoggedInRedirect = () => {
     if (isAuth && userData !== null) {
       navigate(from); // Redirect to the previous page or a default path (/)
     }
-  }, [navigate, userData]);
+  }, [navigate, userData, from, isAuth]);
 
 };
 
