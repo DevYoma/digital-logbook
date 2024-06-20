@@ -4,6 +4,7 @@ import "./LogsPage.scss";
 import { supabase } from "../../supabase/supabaseClient";
 import { UserAuthContext } from "../../context/UserAuthContext";
 import { ExistingEntry } from "../../types/appTypes";
+import { formatDate } from "../../utils/helper";
 
 const LogsPage = () => {
     const [dailyLogs, setDailyLogs] = useState<ExistingEntry[]>([]);
@@ -57,6 +58,8 @@ const LogsPage = () => {
     }
   };
 
+
+
   return (
     <div className="dailyLogList">
       <h2>Your Daily Logs</h2>
@@ -66,7 +69,7 @@ const LogsPage = () => {
           className="dailyLogItem"
           style={{ border: "1px dashed black", marginBottom: "1rem" }}
         >
-          <p>Date: {dailyLog.date}</p>
+          <p>Date: {formatDate(new Date(dailyLog.date))}</p>
           {/* <p>Log: {dailyLog.text}</p> */}
           <p>Log</p>
           <pre>{dailyLog.text}</pre>
