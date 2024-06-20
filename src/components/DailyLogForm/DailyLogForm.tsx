@@ -43,6 +43,14 @@ const DailyLogForm = () => {
       date: selectedDate,
     };
 
+    // checking for weekend condition 
+    const isWeekend = new Date(selectedDate).getDay() === 0 || new Date(selectedDate).getDay() === 6;
+    if (isWeekend) {
+      console.error("Error: You cannot submit logs on weekends.");
+      alert("Log entries cannot be submitted on weekends!");
+      return;
+    }
+
     if (isLoading) {
       console.log("Checking for existing entry...");
       return; // Prevent submission while data is being fetched

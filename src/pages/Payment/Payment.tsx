@@ -86,11 +86,11 @@ const Payment = () => {
                 amount={componentProps.amount}
                 email={componentProps.email}
                 publicKey={componentProps.publicKey}
-                metadata={componentProps.metadata}
+                // metadata={componentProps.metadata}
                 text="Subscribe to Digital Logbook Platform"
                 onSuccess={componentProps.onSuccess}
                 onClose={componentProps.onClose}
-                currency=""
+                // currency={"USD"}
             />
         </div>
       </div>
