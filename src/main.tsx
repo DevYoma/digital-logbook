@@ -6,6 +6,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { Login, LogsPage, NewPassword, Payment, Profile, Register, ResetPassword } from './pages/index.ts';
 import { UserContextProvider } from './context/UserAuthContext.tsx';
 import ProtectedRoute from './components/ProtectedRoute.tsx';
+import { EditLogProvider } from './context/EditLogContext.tsx';
 
 const router = createBrowserRouter([
   {
@@ -21,7 +22,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/logs",
-        element: <LogsPage />,
+        element: (
+          <EditLogProvider>
+            <LogsPage />
+          </EditLogProvider>
+        )
       },
       {
         path: "/payment", 

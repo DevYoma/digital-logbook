@@ -70,3 +70,13 @@ export const UserContextProvider = ({ children }: ChildProp) => {
     </UserAuthContext.Provider>
   );
 };
+
+// export const useUserContext = () => {
+//   const userContext = useContext(UserAuthContext);
+
+//   if(userContext === undefined){
+//     throw new Error("userContext must be used with the whole application")
+//   }
+  
+//   return userContext;
+// }
