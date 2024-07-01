@@ -1,27 +1,31 @@
+import { useState } from 'react';
 import './App.scss'
+import useLoggedInRedirect from './hooks/useLoggedInRedirect';
+import { useUserTheme } from './context/ThemeContext';
 
 function App() {
+  useLoggedInRedirect(); // Redirect to dashboard if user is logged in
+
+  // const [isDarkMode, setIsDarkMode] = useState(false);
+
+  // const toggleTheme = () => {
+  //   setIsDarkMode(!isDarkMode);
+  //   document.documentElement.classList.toggle('dark')
+  // }
+
+  const { isDarkMode, setIsDarkMode, toggleTheme } = useUserTheme();
+  // console.log(isDarkMode);
   return (
     <div className="app">
-      {/* <Logo />
-      <div className="appHeader">
-        <Link to="/profile">Profile</Link> <br />
-        <button onClick={handleLogout}>Logout</button>
-      </div>
-
-      <h2>Hello {userData?.user_metadata?.studentName}</h2>
-      <p>College: {userData?.user_metadata?.schoolName}</p>
-      <p>Department: {userData?.user_metadata?.department}</p>
-      <p>Email: {userData?.user_metadata?.email}</p>
-
-      <div>
-        <DailyLogForm />
-      </div>
-
-      <Link to="/logs">Logs Page</Link>
-       */}
-
-       <h2>Landing Page</h2>
+        <button 
+          onClick={toggleTheme} 
+          className="theme-toggle"
+        >
+          {isDarkMode ? "Normal Mode" : "Dark Mode"}
+        </button>
+       <h2>Digital IT Logbook Landing Page</h2>
+       <p>Simple and Secure: Track Your Daily IT Progress</p>
+       <p>Organize your IT learning journey with ease</p>
     </div>
   );
 }

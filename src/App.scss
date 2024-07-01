@@ -5,20 +5,9 @@
 }
 
 .app{
-  background: var(--primary-background);
-  color: var(--primary-color);
   min-height: 100vh;
   // text-align: center;
-
-  &Header{
-    border: 1px dashed grey;
-    display: flex;
-    justify-content: space-between;
-
-    @media screen and (max-width: 768px) {
-      width: 90%;
-      row-gap: 1rem;
-      flex-direction: column;
-    }
-  }
+  // background: #050117;
+  // background: #070709;
+  // color: white;
 }

@@ -2,10 +2,14 @@
 
 :root {
   font-family: "Chakra Petch", sans-serif;
-  /* --primary-background: black;
-  --primary-color: white; */
-  
-  --primary-background: white;
+  --primary-background: white; 
   --primary-color: black;
-}
 
+  background: white; 
+
+  &.dark{
+    background: #070709;
+    color: white;
+  }
+}
+  
