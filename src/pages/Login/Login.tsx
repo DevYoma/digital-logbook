@@ -41,7 +41,7 @@ const Login = () => {
       // console.log(data)
         setUserData(data.user);
         setIsAuth(true)
-        navigate("/");
+        navigate("/dashboard");
     } catch (error) {
       setLoading(false);
       setIsAuth(false)

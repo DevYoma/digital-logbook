@@ -116,7 +116,7 @@ const Profile = () => {
       console.log("IT program duration updated successfully:", data);
       alert("IT data updated successfully!"); // User-friendly feedback
       setUserData(data.user);
-      navigate("/");
+      navigate("/dashboard");
     } catch (error) {
       console.error("Error updating IT program duration:", error);
       alert(`Error: ${error?.message}`); // Informative error message

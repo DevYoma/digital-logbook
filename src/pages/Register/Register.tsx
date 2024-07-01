@@ -23,7 +23,7 @@ const Register = () => {
 
     useEffect(() => {
     if(isAuth && userData !== null){
-      navigate("/") 
+      navigate("/dashboard") 
     }
   }, [navigate, userData])
 

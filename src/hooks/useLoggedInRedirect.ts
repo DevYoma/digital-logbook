@@ -7,7 +7,7 @@ const useLoggedInRedirect = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const from = location.state?.from ? location.state.from : "/"; // Optional to capture the previous path
+  const from = location.state?.from ? location.state.from : "/dashboard"; // Optional to capture the previous path
 
   useEffect(() => {
     if (isAuth && userData !== null) {
