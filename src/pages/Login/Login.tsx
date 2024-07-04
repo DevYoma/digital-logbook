@@ -46,7 +46,8 @@ const Login = () => {
       setLoading(false);
       setIsAuth(false)
       alert("Oops! Something went wrong. Please try again");
-      console.log(error?.message)
+      // console.log(error?.message)
+      console.log(error)
       setUserData(null);
     } finally {
       setLoading(false);

@@ -17,12 +17,14 @@ const ResetPassword = () => {
     setError(null);
 
     try {
-      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      const { error: authError } = await supabase.auth.resetPasswordForEmail(email, {
         redirectTo: "http://localhost:5173/new-password",
       });
 
-      if (error) {
+      if (authError) {
         setError(error?.message);
+        console.log(error)
+        alert(authError.message)
       } else {
         // Success message (optional)
         console.log("Password reset email sent successfully!");

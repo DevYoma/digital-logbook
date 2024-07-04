@@ -10,13 +10,15 @@ type EditLogContextType = {
     setLogData: (logData: ExistingEntry | null) => void;
     openEditModal: boolean;
     setOpenEditModal: (openEditModal: boolean) => void;
+    handleCloseEditModal: () => void;
 }
 
 export const EditLogContext = createContext<EditLogContextType>({
     logData: null,
     setLogData:() => {},
     openEditModal: false,
-    setOpenEditModal: () => {}
+    setOpenEditModal: () => {},
+    handleCloseEditModal: () => {}
 })
 
 export const EditLogProvider = ({ children }: ChildProp) => {

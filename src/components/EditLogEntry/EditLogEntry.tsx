@@ -1,6 +1,6 @@
 import { Box, Modal } from "@mui/material"
 import { useState } from "react";
-import { ExistingEntry } from "../../type/appTypes";
+import { ExistingEntry } from "../../types/appTypes";
 
 type Prop = {
   initialEntry: ExistingEntry
@@ -11,10 +11,10 @@ type Prop = {
 
 const EditLogEntry = ({ initialEntry, onSubmit, isOpen, onClose }: Prop) => {
     const [open, setOpen] = useState(isOpen);
-    const handleOpen = () => setOpen(true);
+    // const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    const [formData, setFormData] = useState(initialEntry)
+    const [formData] = useState(initialEntry)
 
     // const handleDailyLogUpdate = async (e:React.FormEvent<HTMLFormElement>) => {
     //     e.preventDefault();
@@ -40,7 +40,7 @@ const EditLogEntry = ({ initialEntry, onSubmit, isOpen, onClose }: Prop) => {
       aria-describedby="parent-modal-description"
     >
       <Box sx={{ width: 400 }}>
-        <form onSubmit={(e: any) => onSubmit(formData)}>
+        <form onSubmit={() => onSubmit(formData)}>
         <textarea
           value={formData.text}
           onChange={handleTextChange}

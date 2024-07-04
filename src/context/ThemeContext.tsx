@@ -4,7 +4,7 @@ type ChildProp = {
     children: React.ReactNode;
 }
 
-export const ThemeContext = createContext();
+export const ThemeContext = createContext({});
 
 export const ThemeProvider = ({ children }: ChildProp) => {
     const [isDarkMode, setIsDarkMode] = useState(true);

@@ -120,6 +120,7 @@ const Profile = () => {
       navigate("/dashboard");
     } catch (error) {
       console.error("Error updating IT program duration:", error);
+      // @ts-expect-error("it is expected please")
       alert(`Error: ${error?.message}`); // Informative error message
     } finally {
       // Optional actions after success or failure (e.g., reset loading state)
@@ -206,7 +207,7 @@ const Profile = () => {
                 name="startDate"
                 id="startdate"
                 required
-                value={profileData.startDate}
+                value={profileData.startDate as string}
                 onChange={handleChange}
               />
             </div>

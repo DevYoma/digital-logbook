@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import './App.scss'
 import Logo from './atoms/Logo/Logo';
 import useLoggedInRedirect from './hooks/useLoggedInRedirect';
-import { MdDarkMode } from "react-icons/md";
+// import { MdDarkMode } from "react-icons/md";
 import Button from './components/Button/Button';
 
 function App() {
