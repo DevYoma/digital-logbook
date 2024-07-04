@@ -30,3 +30,5 @@ export const useUserTheme = () => {
 
     return userTheme;
 }
+
+// website landing page default color => BLACK

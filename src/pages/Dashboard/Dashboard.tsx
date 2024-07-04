@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-// import './App.scss'
+import './Dashboard.scss'
 import Logo from "../../atoms/Logo/Logo"
 import { supabase } from '../../supabase/supabaseClient'
 import { UserAuthContext } from '../../context/UserAuthContext'
@@ -25,7 +25,7 @@ const Dashboard = () =>  {
   }
 
   return (
-    <div className="dashboard">
+    <div className="dashboard" style={{ background: "white" }}>
       <Logo />
       <div className="dashboardHeader">
         <Link to="/profile">Profile</Link> <br />

@@ -1,0 +1,36 @@
+$primary: #007bff;
+$secondary: #6c757d;
+$outline: #ccc;
+
+.button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &--primary {
+    background-color: $primary;
+    color: #fff;
+  }
+
+  &--secondary {
+    background-color: $secondary;
+    color: #fff;
+  }
+
+  &--outline {
+    background-color: transparent;
+    color: $outline;
+    border: 1px solid $outline;
+  }
+
+  &.disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+}

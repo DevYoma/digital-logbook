@@ -1,3 +1,4 @@
+import "./Profile.scss"
 import { useContext, useEffect, useState } from "react";
 import Logo from "../../atoms/Logo/Logo"
 import { UserAuthContext } from "../../context/UserAuthContext";
@@ -128,7 +129,7 @@ const Profile = () => {
   // console.log(userData);
 
   return (
-    <div className="profile">
+    <div className="profile" style={{ background: "white" }}>
       <Logo />
       <div className="profileHeader">
         <h2>Profile Page</h2>
