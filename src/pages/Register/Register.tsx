@@ -54,7 +54,8 @@ const Register = () => {
         email: formData.email,
         password: formData.password,
         options:{
-          emailRedirectTo: "http://localhost:5173/login",
+          // emailRedirectTo: "http://localhost:5173/login",
+          emailRedirectTo: "digital-logbook-elv7.vercel.app/login",
           data: {
             studentName: formData.studentName,
             schoolName: formData.schoolName,
@@ -63,6 +64,7 @@ const Register = () => {
           }
         }
       })
+      console.log("rendering");
 
       if (error) throw error;
       console.log(data);
