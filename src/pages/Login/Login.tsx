@@ -1,21 +1,27 @@
-import { ChangeEvent, useContext, useState } from "react";
+import { ChangeEvent, useContext, useEffect, useState } from "react";
 import Logo from "../../atoms/Logo/Logo";
 import "./Login.scss";
 import { Link } from "react-router-dom";
 import { supabase } from "../../supabase/supabaseClient";
 import { useNavigate } from 'react-router-dom';
 import { UserAuthContext } from "../../context/UserAuthContext";
-import useLoggedInRedirect from "../../hooks/useLoggedInRedirect";
+// import useLoggedInRedirect from "../../hooks/useLoggedInRedirect";
 
 const Login = () => {
-  useLoggedInRedirect();
-  const { setUserData, setIsAuth } = useContext(UserAuthContext)
+  // useLoggedInRedirect();
+  const { setUserData, setIsAuth, isAuth, userData } = useContext(UserAuthContext)
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     password: ""
   })
   const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    if(isAuth && userData !== null){
+      navigate("/dashboard") 
+    }
+  }, [navigate, userData, isAuth])
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;

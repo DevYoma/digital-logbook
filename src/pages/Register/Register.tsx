@@ -71,6 +71,7 @@ const Register = () => {
       alert("Check your email for the verification link") // route them to Login Page
     } catch (error) {
       alert(error);
+      alert("Oops, User already exists")
       setLoading(false);
     } finally {
       setLoading(false);
