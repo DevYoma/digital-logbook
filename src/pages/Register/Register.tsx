@@ -75,6 +75,8 @@ const Register = () => {
         alert("An error occurred. Please try again later.");
         setLoading(false);
         return;
+      }else{
+        alert("Check your email for the verification link")
       }
     } catch (error) {
       alert(error);
