@@ -17,9 +17,13 @@ const ResetPassword = () => {
     setError(null);
 
     try {
-      const { error: authError } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: "http://localhost:5173/new-password",
-      });
+      const { error: authError } = await supabase.auth.resetPasswordForEmail(
+        email,
+        {
+          // redirectTo: "http://localhost:5173/new-password",
+          redirectTo: "https://digital-logbook-elv7.vercel.app/new-password",
+        }
+      );
 
       if (authError) {
         setError(error?.message);
@@ -28,6 +32,7 @@ const ResetPassword = () => {
       } else {
         // Success message (optional)
         console.log("Password reset email sent successfully!");
+        alert("Check your email to get the change password link")
       }
     } catch (err) {
       console.error("Error sending password reset email:", err);
