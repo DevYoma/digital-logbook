@@ -64,23 +64,16 @@ const Register = () => {
           }
         }
       })
-      console.log(data);
 
-      // if (error) throw error;
-      // console.log(data);
-      // alert("Check your email for the verification link") 
-
-       if (error) {
-        console.error("Sign-up error:", error);
-        alert("An error occurred. Please try again later.");
-        setLoading(false);
-        return;
-      }else{
-        alert("Check your email for the verification link")
+      if (error){
+        throw error
       }
+      console.log("User data:",data);
+      alert("Sign up successful! Check your email for the verification link") // route them to Login Page
     } catch (error) {
-      alert(error);
-      // alert("Oops, User already exists")
+      console.log("Error signing up:", error)
+      // @ts-expect-error("allow")
+      alert(error?.message);
       setLoading(false);
     } finally {
       setLoading(false);
