@@ -64,14 +64,21 @@ const Register = () => {
           }
         }
       })
-      console.log("rendering");
-
-      if (error) throw error;
       console.log(data);
-      alert("Check your email for the verification link") // route them to Login Page
+
+      // if (error) throw error;
+      // console.log(data);
+      // alert("Check your email for the verification link") 
+
+       if (error) {
+        console.error("Sign-up error:", error);
+        alert("An error occurred. Please try again later.");
+        setLoading(false);
+        return;
+      }
     } catch (error) {
       alert(error);
-      alert("Oops, User already exists")
+      // alert("Oops, User already exists")
       setLoading(false);
     } finally {
       setLoading(false);
