@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import useLoggedInRedirect from '../../hooks/useLoggedInRedirect';
 
 const NewPassword = () => {
-    useLoggedInRedirect();
+    // useLoggedInRedirect();
     const navigate = useNavigate();
     const [newPassword, setNewPassword] = useState("");
     const [confirmNewPassword, setCofirmNewPassword] = useState("");
