@@ -32,7 +32,7 @@ const NewPassword = () => {
         console.log(error);
         alert(error?.message)
         setLoading(false);
-      }finally{
+      }finally{ 
         setLoading(false);
       }
     };

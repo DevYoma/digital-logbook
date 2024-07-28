@@ -68,6 +68,14 @@ const Register = () => {
       if (error){
         throw error
       }
+
+      // check for user uniqueness
+      if (data?.user?.identities?.length === 0) {
+        alert("Email already registered. Please try a different email.");
+        setLoading(false);
+        return;
+      }
+
       console.log("User data:",data);
       alert("Sign up successful! Check your email for the verification link") // route them to Login Page
     } catch (error) {
