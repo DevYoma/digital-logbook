@@ -27,12 +27,13 @@ Digital Logbook offers a valuable tool for internship management. I actively use
 
 ## Key Features
 - **User Management and Data Protection:** Ensures user data is secure and protected.
-- **Daily Logging:** Enables users to fill out a daily log form.
+- **Daily Logging:** Enables users to fill out a daily log form. They can only fill the form once. Edits can be made to the already filled daily log.
 - **Mobile Accessibility:** Optimized for viewing and interacting with on mobile devices.
 
 ## Tech Stack
 - **Client:** React JS, Typescript, SCSS, Context API
 - **Backend as a Service:** Supabase
 - **Testing Frameworks:** Vitest, React Testing Library
+ 
 
 I hope this detailed documentation effectively showcases the purpose and functionalities of Digital Logbook!
