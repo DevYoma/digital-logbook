@@ -1,30 +1,38 @@
-# React + TypeScript + Vite
+# Digital Logbook
+A web application for internship tracking
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project aims to help students keep track of their daily activities, events, and tasks during their internship semester.
 
-Currently, two official plugins are available:
+## About the Project
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Motivation
+As an intern myself, I experienced the difficulty of recalling past tasks and activities after a few months. This project's purpose is to provide students with a centralized platform to document their internship journey for future reference.
 
-## Expanding the ESLint configuration
+### Why I Built It
+This project addresses a real-life problem faced by many interns. Having a digital logbook allows students to maintain an organized record of their internship experience.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### Problem Solved
+Digital Logbook eliminates the issue of scattered or forgotten internship activities. By logging daily entries, students can easily access and review their experiences at any time.
 
-- Configure the top-level `parserOptions` property like this:
+### Learnings
+This project fostered my development skills across various areas:
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+- Project development from ideation to execution
+- Utilizing Supabase (BaaS) with React JS
+- Fundamentals of testing (Vitest & React Testing Library)
+- Honing React development skills
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+### What Makes it Stand Out
+Digital Logbook offers a valuable tool for internship management. I actively use it, and it will soon be shared with fellow students.
+
+## Key Features
+- **User Management and Data Protection:** Ensures user data is secure and protected.
+- **Daily Logging:** Enables users to fill out a daily log form.
+- **Mobile Accessibility:** Optimized for viewing and interacting with on mobile devices.
+
+## Tech Stack
+- **Client:** React JS, Typescript, SCSS, Context API
+- **Backend as a Service:** Supabase
+- **Testing Frameworks:** Vitest, React Testing Library
+
+I hope this detailed documentation effectively showcases the purpose and functionalities of Digital Logbook!
