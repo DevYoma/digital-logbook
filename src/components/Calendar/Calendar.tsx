@@ -34,7 +34,7 @@ const Calendar = () => {
     return date
   });
 
-//   console.log(days);
+  console.log(startOfMonth, endOfMonth, days, calendarData);
 
 
   return (

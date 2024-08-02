@@ -1,7 +1,7 @@
 import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from "@testing-library/user-event";
 import { Login } from '../../src/pages'
-import { BrowserRouter, useNavigate } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 
 describe('Login', () => {
     it('should show the Login text as heading', () => {

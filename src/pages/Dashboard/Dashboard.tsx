@@ -5,7 +5,6 @@ import { supabase } from '../../supabase/supabaseClient'
 import { UserAuthContext } from '../../context/UserAuthContext'
 import { useNavigate, Link } from 'react-router-dom'
 import DailyLogForm from '../../components/DailyLogForm/DailyLogForm'
-import Calendar from '../../components/Calendar/Calendar'
 
 const Dashboard = () =>  {
   const navigate = useNavigate();
