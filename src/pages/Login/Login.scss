@@ -1,47 +1,55 @@
-.login{
-    background: var(--primary-background);
-    color: var(--primary-color);
-    min-height: 100vh;
+#loginContainer{
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
+    height: 100vh;
+}
+
+.login{
+    width: 518px;
+    padding: 2rem 1.75rem;
+    background: white;
+    color: black;   
+    border-radius: 10px;
+
+    @media screen and (max-width: 500px){
+        width: 80%;
+    }
 
     &Header{
-        margin: 1rem 0 1rem;
+        font-size: 1.75rem;
+    }
+
+    &Text{
+        color: #667185;
+        margin: 1rem 0;
     }
 
     &Form{
+        width: 100%;
         // border: 1px solid red;
         display: flex;
         flex-direction: column;
-        width: 30%;
 
+        & > div:first-of-type{
+            // border: 1px solid red;
+            margin-bottom: 1.75rem;
+        }
+
+        & > div > label{
+            font-size: 12px;
+            color: #101928;
+            font-weight: 700;
+        }
+        
         input{
-            margin: 1rem 0;
+            padding: 18px 0;
+            width: 100%;
+            margin-top: 5px;
+            // margin: 1rem 0;
             padding: 0.5rem;
             border: 1px solid var(--primary-color);
             border-radius: 5px;
-        }
-
-        button{
-            margin-top: 1rem;
-            padding: 0.5rem 1rem;
-            background-color: var(--primary-color);
-            color: var(--primary-background);
-            border: none;
-            border-radius: 5px;
-            font-size: 1rem;
-            cursor: pointer;
-    
-            &:hover{
-                // background-color: darken(var(--primary-color), 10%);
-                opacity: 0.75;
-            }
-    
-            &:focus{
-                outline: none;
-                box-shadow: 0 0 0 2px var(--primary-color);
-            }
         }
     }
 

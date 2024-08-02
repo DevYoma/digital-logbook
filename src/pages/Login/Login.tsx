@@ -1,10 +1,10 @@
 import { ChangeEvent, useContext, useEffect, useState } from "react";
-import Logo from "../../atoms/Logo/Logo";
 import "./Login.scss";
 import { Link } from "react-router-dom";
 import { supabase } from "../../supabase/supabaseClient";
 import { useNavigate } from 'react-router-dom';
 import { UserAuthContext } from "../../context/UserAuthContext";
+import Button from "../../components/Button/Button";
 // import useLoggedInRedirect from "../../hooks/useLoggedInRedirect";
 
 const Login = () => {
@@ -63,41 +63,61 @@ const Login = () => {
   // console.log(userData);
 
   return (
-    <div className="login">
-      <Logo />
-      <h1 className="loginHeader">Login</h1>
-      <p className="loginText">
-        Don’t have an account?{" "}
-        <Link
-          to={"/register"}
-          style={{ color: "#4318FF", textDecoration: "none" }}
-        >
-          create one here
-        </Link>
-      </p>
-      <form className="loginForm" onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="email"
-          placeholder="Email"
-          value={formData.email}
-          required
-          onChange={handleChange}
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={formData.password}
-          required
-          onChange={handleChange}
-        />
-        <button>{loading ? "Loading..." : "Login"}</button>
-      </form>
+    <div id="loginContainer">
+      <div className="login">
+        <h1 className="loginHeader">Login</h1>
+        <p className="loginText">
+          Log in to your account
+        </p>
+        <form className="loginForm" onSubmit={handleSubmit}>
+          <div>
+            <label htmlFor="email">EMAIL ADDRESS</label>
+            <input
+              type="text"
+              id="email"
+              name="email"
+              placeholder="Email"
+              value={formData.email}
+              required
+              onChange={handleChange}
+            />
+          </div>
+
+          <div>
+            <label htmlFor="password">PASSWORD</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Password"
+              value={formData.password}
+              required
+              onChange={handleChange}
+            />
+          </div>
+
+          <Button 
+            variant="form"
+            disabled={formData.email === "" || formData.password === ""}
+            style={{
+              marginTop: "2.8rem"
+            }}
+          >
+            {loading ? "Loading..." : "Login"}
+          </Button>
+
+        </form>
         <p className="loginForgotPassword">
           Forgot your password?
-          <Link to={"/reset-password"} style={{ color: "#4318FF", textDecoration: "none" }}> Reset it here </Link>
+          <Link
+            to={"/reset-password"}
+            style={{ color: "#4318FF", textDecoration: "none" }}
+          >
+            {" "}
+            Reset it here{" "}
+          </Link>
         </p>
+      </div>
     </div>
   );
 }

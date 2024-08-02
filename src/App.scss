@@ -6,59 +6,57 @@
 
 .app{
     min-height: 100vh;
-    // background: #050117;
     background: #070709;
-    // background: #030014;
-    // color: #EAE9EC;
     color: white;
     padding-top: 26px;
     max-width: 1300px;
     margin-inline: auto;
-    // border-left: 1px solid rgba(255, 255, 255, 0.1); 
-    // border-right: 1px solid rgba(255, 255, 255, 0.1);
 
     &Navbar{
       // border: 1px solid rgba(255, 255, 255, 0.4);
       border-radius: 999px;
       padding: 10px 12px;
-      margin-inline: auto;
+      margin-inline: auto;  
       display: flex;
       justify-content: space-between;
 
-      &__links{
-        display: flex;
-        list-style-type: none;
-        flex: 0.4;
-        justify-content: space-around;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 999px;
-        align-items: center;
-        padding: 5px 0;
-      }
-
       &__ctaButtons{
         display: flex;
-        flex: 0.2;
+        // flex: 0.2;
         // border: 1px solid blue;
+        gap: 1rem;
         justify-content: space-between;
         align-items: center;
+
+        @media screen and (max-width: 500px) {
+          
+        }
       }
     }
 
     &Hero{
       margin-top: 4rem;
-      border: 1px solid rgba(255, 255, 255, 0.09);
+      // border: 1px solid rgba(255, 255, 255, 0.09);
       border-radius: 20px;
-      // padding: 10px 0;
       padding: 1rem 0;
       text-align: center;
       h1{
-        font-size: 3rem;
+        font-size: 4rem;
+        @media screen and (max-width: 500px){
+          font-size: 2.5rem ;
+        }
       }
 
-      p{
-        font-size: 2rem;
+      div{
+        font-size: 1.5rem;
         margin-top: 1.5rem;
+        width: 80%;
+        margin: 3.5rem auto;
+
+         @media screen and (max-width: 500px){
+          margin: 1.5rem auto;
+          font-size: 1.2rem;
+        }
       }
     }
 

@@ -5,7 +5,7 @@ describe('Button', () => {
     it('should render the Children prop with its value when the button component is used', () => {
         render(<Button>Child Prop</Button>)
 
-        // screen.debug();
+        screen.debug();
         const buttonText = screen.getByRole('button');
         expect(buttonText).toBeInTheDocument(); // this is an assertion (custom matchers)
         expect(buttonText).toHaveTextContent(/Child Prop/i); // this is an assertion
@@ -22,5 +22,5 @@ describe('Button', () => {
         expect(buttonElement).toBeDisabled();
     })
 
-    // Test Button Interaction (onClick)    
+    // Test Button Interaction (onClick)
 })

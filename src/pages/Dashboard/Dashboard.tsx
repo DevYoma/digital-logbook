@@ -5,11 +5,12 @@ import { supabase } from '../../supabase/supabaseClient'
 import { UserAuthContext } from '../../context/UserAuthContext'
 import { useNavigate, Link } from 'react-router-dom'
 import DailyLogForm from '../../components/DailyLogForm/DailyLogForm'
+import Calendar from '../../components/Calendar/Calendar'
 
 const Dashboard = () =>  {
   const navigate = useNavigate();
   const { userData, setUserData, setIsAuth } = useContext(UserAuthContext)
-  // console.log(userData);
+  // console.log(userData?.user_metadata.email);
 
   // HANDLE LOGOUT (duplicate)
   const handleLogout = async () => {
@@ -36,6 +37,10 @@ const Dashboard = () =>  {
       <p>College: {userData?.user_metadata?.schoolName}</p>
       <p>Department: {userData?.user_metadata?.department}</p>
       <p>Email: {userData?.user_metadata?.email}</p>
+
+      <div>
+        {/* <Calendar /> */}
+      </div>
 
       <div>
         <DailyLogForm />

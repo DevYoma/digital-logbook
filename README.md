@@ -37,3 +37,4 @@ Digital Logbook offers a valuable tool for internship management. I actively use
  
 
 I hope this detailed documentation effectively showcases the purpose and functionalities of Digital Logbook!
+****

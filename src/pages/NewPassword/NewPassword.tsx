@@ -1,12 +1,9 @@
 import React, { useState } from 'react'
 import "./NewPassword.scss";
 import { supabase } from '../../supabase/supabaseClient';
-import Logo from '../../atoms/Logo/Logo';
 import { useNavigate } from 'react-router-dom';
-// import useLoggedInRedirect from '../../hooks/useLoggedInRedirect';
 
 const NewPassword = () => {
-    // useLoggedInRedirect();
     const navigate = useNavigate();
     const [newPassword, setNewPassword] = useState("");
     const [confirmNewPassword, setCofirmNewPassword] = useState("");
@@ -38,8 +35,8 @@ const NewPassword = () => {
     };
     
   return (
-    <div className="newPassword">
-        <Logo />
+    <div id="newPasswordContainer">
+      <div className="newPassword">
         <h2 className="newPasswordHeader">New Password Page</h2>
         <p>Enter your new password</p>
     
@@ -64,6 +61,7 @@ const NewPassword = () => {
     
             <button>{loading ? "Loading..." : "Submit"}</button>
         </form>
+      </div>
     </div>
   )
 }

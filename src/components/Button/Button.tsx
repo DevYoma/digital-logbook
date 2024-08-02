@@ -1,19 +1,22 @@
 import "./Button.scss";
 
 interface ButtonProps {
-  children: React.ReactNode; // Button content
-  variant?: "primary" | "secondary" | "outline"; // Button variant
-  disabled?: boolean; // Disable button functionality
-  onClick?: () => void; // Function to call on click
+  children: React.ReactNode;
+  variant?: "primary" | "secondary" | "outline" | "form";
+  size?: "small" | "medium" | "large"; 
+  disabled?: boolean; 
+  onClick?: () => void;
+  style?: React.CSSProperties;
 }
 
-const Button = ({ children, variant="primary", disabled, onClick }: ButtonProps) => {
-    const buttonClasses = `button button--${variant} ${disabled ? 'disabled' : ''}`
+const Button = ({ children, size="medium", variant="primary", disabled, onClick, style }: ButtonProps) => {
+    const buttonClasses = `button button--${variant} button--${size} ${disabled ? 'disabled' : ''}`
   return (
     <button 
-        onClick={onClick} 
-        disabled={disabled}
-        className={buttonClasses}
+      onClick={onClick} 
+      disabled={disabled}
+      className={buttonClasses}
+      style={style}
     >
         {children}
     </button>

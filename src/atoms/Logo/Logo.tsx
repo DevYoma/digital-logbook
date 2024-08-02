@@ -1,6 +1,6 @@
 
 const Logo = () => {
-  return <h1>Digital Logbook</h1>;
+  return <h1 title="Digital Logbook">DL</h1>;
 }
 
 export default Logo

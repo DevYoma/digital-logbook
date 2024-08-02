@@ -73,7 +73,7 @@ const LogsPage = () => {
     fetchDailyLogs();
   }, []);
 
-  // console.log(dailyLogs);
+  console.log(dailyLogs);
 
   // DELETE LOG ENTRY
   const handleDeleteLogEntry = async (logEntryId: string) => {

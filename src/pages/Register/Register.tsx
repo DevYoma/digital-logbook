@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import "./Register.scss";
-import Logo from "../../atoms/Logo/Logo";
 import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "../../supabase/supabaseClient";
 import { UserAuthContext } from "../../context/UserAuthContext";
 import useLoggedInRedirect from "../../hooks/useLoggedInRedirect";
+import Button from "../../components/Button/Button";
 
 const Register = () => {
   useLoggedInRedirect();
@@ -89,73 +89,112 @@ const Register = () => {
   };
 
   return (
-    <div className="register">
-      <Logo />
-      <h1 className="registerHeader">Register</h1>
-      <p>
-        Already have an account?{" "}
-        <Link
-          to={"/login"}
-          style={{ color: "#4318FF", textDecoration: "none" }}
-        >
-          Login
-        </Link>
-      </p>
-      <form className="registerForm" onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="email"
-          placeholder="Email"
-          value={formData.email}
-          required
-          onChange={handleChange}
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={formData.password}
-          required
-          onChange={handleChange}
-        />
+    <div id="registerContainer">
+      <div className="register">
+        <h1 className="registerHeader" data-testid="register-id">
+          Create Account
+        </h1>
+        <p className="registerText">Get started with Log book entering your information below</p>
+        
+        <form className="registerForm" onSubmit={handleSubmit}>
+          <div>
+            <label htmlFor="email">Email Address</label>
+            <input
+              type="text"
+              id="email"
+              name="email"
+              placeholder="Email"
+              value={formData.email}
+              required
+              onChange={handleChange}
+            />
+          </div>
 
-        <input
-          type="password"
-          name="confirmPassword"
-          placeholder="Confirm Password"
-          value={formData.confirmPassword}
-          required
-          onChange={handleChange}
-        />
+          <div>
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Password"
+              value={formData.password}
+              required
+              onChange={handleChange}
+            />
+          </div>
 
-        <input
-          type="text"
-          name="studentName"
-          placeholder="Student Name"
-          value={formData.studentName}
-          required
-          onChange={handleChange}
-        />
+          <div>
+            <label htmlFor="confirmPassword">Confirm Password</label>
+            <input
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              placeholder="Confirm Password"
+              value={formData.confirmPassword}
+              required
+              onChange={handleChange}
+            />
+          </div>
 
-        <input
-          type="text"
-          name="schoolName"
-          placeholder="School Name"
-          value={formData.schoolName}
-          required
-          onChange={handleChange}
-        />
+          <div>
+            <label htmlFor="name">Name</label>
+            <input
+              type="text"
+              name="studentName"
+              id="name"
+              placeholder="Student Name"
+              value={formData.studentName}
+              required
+              onChange={handleChange}
+            />
+          </div>
 
-        <input
-          type="text"
-          name="department"
-          placeholder="Department"
-          value={formData.department}
-          required
-          onChange={handleChange}
-        />
-        <button>{loading ? "Loading..." : "Create Account"}</button>
-      </form>
+          <div>
+            <label htmlFor="schoolName">School Name</label>
+            <input
+              type="text"
+              name="schoolName"
+              id="schoolName"
+              placeholder="School Name"
+              value={formData.schoolName}
+              required
+              onChange={handleChange}
+            />
+          </div>
+
+          <div>
+            <label htmlFor="department">Department</label>
+            <input
+              type="text"
+              name="department"
+              id="department"
+              placeholder="Department"
+              value={formData.department}
+              required
+              onChange={handleChange}
+            />
+          </div>
+
+          <Button 
+            variant="form"
+            style={{
+              margin: "2rem 0"
+            }}
+          >
+            {loading ? "Loading..." : "Create Account"}
+          </Button>
+        </form>
+
+        <p className="registerQuestion">
+          Already have an account?{" "}
+          <Link
+            to={"/login"}
+            style={{ color: "#4318FF", textDecoration: "none" }}
+          >
+            Login
+          </Link>
+        </p>
+      </div>
     </div>
   );
 }

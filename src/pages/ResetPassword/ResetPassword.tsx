@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
-import Logo from "../../atoms/Logo/Logo";
 import "./ResetPassword.scss";
 import { supabase } from "../../supabase/supabaseClient";
 import useLoggedInRedirect from "../../hooks/useLoggedInRedirect";
+import Button from "../../components/Button/Button";
 
 const ResetPassword = () => {
   useLoggedInRedirect();
@@ -43,23 +43,30 @@ const ResetPassword = () => {
   };
 
   return (
-    <div className="resetPassword">
-      <Logo />
-      <h2 className="resetPasswordHeader">Reset Password</h2>
-      <p>A reset password OTP will be sent to your email address</p>
+    <div id="resetPasswordContainer">
+      <div className="resetPassword">
+        <h2 className="resetPasswordHeader">Reset Password</h2>
+        <p>A reset password OTP will be sent to your email address</p>
 
-      <form className="resetPasswordForm" onSubmit={handleSubmit}>
-        <input
-          type="email"
-          placeholder="Email Address"
-          required
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+        <form className="resetPasswordForm" onSubmit={handleSubmit}>
+          <input
+            type="email"
+            placeholder="Email Address"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
 
-        <button> {isSubmitting ? "Loading..." : "Submit"}</button>
-      </form>
+          <Button
+            variant="form"
+            disabled={isSubmitting || email === ""}
+          >
+            {isSubmitting ? "Loading..." : "Submit"}
+          </Button>
+        </form>
+      </div>
     </div>
+  
   );
 };
 

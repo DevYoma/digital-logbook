@@ -1,47 +1,65 @@
-.register{
-    background: var(--primary-background);
-    color: var(--primary-color);
-    min-height: 100vh;
+#registerContainer{
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
+    min-height: 100vh;
+}
+
+.register{
+    width: 518px;
+    background: white;
+    color: black;
+    padding: 2rem 1.75rem; 
+    border-radius: 10px;
+
+    @media screen and (max-width: 500px){
+        width: 90%;
+    }
 
     &Header{
-        margin: 1rem 0 1rem;
+    }
+
+    &Text{
+        margin: 24px 0;
+        color: #667185;
+        font-weight: 500;
     }
 
     &Form{
+        width: 100%;
         // border: 1px solid red;
         display: flex;
         flex-direction: column;
-        width: 30%;
+
+        & > div{
+            display: flex;
+            flex-direction: column;
+
+            label{
+                font-size: 14px;
+                color: #101928;
+                font-weight: 700;
+            }
+
+            input{
+                margin-top: 5px;
+            }
+
+            &:not(:last-of-type){
+                // border: 1px solid red;
+                margin-bottom: 1.2rem;
+            }
+        }
 
         input{
-            margin: 1rem 0;
+            // margin: 1rem 0;
             padding: 0.5rem;
             border: 1px solid var(--primary-color);
             border-radius: 5px;
         }
     }
 
-    button{
-        margin-top: 1rem;
-        padding: 0.5rem 1rem;
-        background-color: var(--primary-color);
-        color: var(--primary-background);
-        border: none;
-        border-radius: 5px;
-        font-size: 1rem;
-        cursor: pointer;
-
-        &:hover{
-            // background-color: darken(var(--primary-color), 10%);
-            opacity: 0.75;
-        }
-
-        &:focus{
-            outline: none;
-            box-shadow: 0 0 0 2px var(--primary-color);
-        }
+    &Question{
+        text-align: center;
     }
 }
