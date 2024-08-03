@@ -35,6 +35,19 @@ Digital Logbook offers a valuable tool for internship management. I actively use
 - **Backend as a Service:** Supabase
 - **Testing Frameworks:** Vitest, React Testing Library
  
+## How the App looks like
+![dl-landingPage](https://github.com/user-attachments/assets/b31762a2-f622-47c3-8903-1a2100303fd2)
+
+![dl-registerPage](https://github.com/user-attachments/assets/92c989b3-ee7e-4eb4-8e6d-f0805276e80f)
+
+![dl-loginPage](https://github.com/user-attachments/assets/cc9e6abd-2d56-4f5c-ba63-2a22c77c2496)
+
+![dl-dashboardPage](https://github.com/user-attachments/assets/1d9436ac-f984-4376-88ef-69d4b474362e)
+
+![dl-profilePage](https://github.com/user-attachments/assets/1ce3e29f-3315-4342-bcac-63d58304cad5)
+
+![dl-logsPage](https://github.com/user-attachments/assets/75da2740-a2cc-41df-9b9f-91f70c9ebb59)
+
 
 I hope this detailed documentation effectively showcases the purpose and functionalities of Digital Logbook!
 ****
