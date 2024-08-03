@@ -1,14 +1,15 @@
-import React, { useContext, useState } from "react";
+  import React, { useContext, useState } from "react";
 import "./DailyLogForm.scss";
 import { supabase } from "../../supabase/supabaseClient";
 import { useCheckExistingEntry } from "../../hooks/useCheckExistingEntry";
 import { UserAuthContext } from "../../context/UserAuthContext";
 import { useNavigate } from "react-router-dom";
 import { ExistingEntry } from "../../types/appTypes";
+import { formatSelectedDate } from "../../utils/helper";
+import Button from "../Button/Button";
 
 const DailyLogForm = () => {
   const [dailyLogText, setDailyLogText] = useState("");
-  //   const [currentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(
     new Date().toISOString().slice(0, 10)
   ); // Initial date in YYYY-MM-DD format
@@ -110,38 +111,65 @@ const DailyLogForm = () => {
 
   return (
     <div className="dailyLogForm">
-      {/* <h3>Daily Log for {currentDate.toLocaleDateString()}</h3> */}
-      <h3>Daily Log for {selectedDate}</h3>
+      <p className="dailyLogFormHeader">New Log</p>
+      <p className="dailyLogFormText">
+        Manage and organize your activities efficiently
+      </p>
       {disableUntilDurationIsSet && (
-        <p style={{ color: "red" }}>
+        <p style={{ color: "red", marginBottom: "1rem" }}>
           Please update your profile data to get access to the form
         </p>
       )}
       <form onSubmit={handleDailyLogFormSubmission}>
-        <input
-          type="date"
-          value={selectedDate}
-          onChange={handleDateChange}
-          min={userData?.user_metadata?.startDate !== undefined ? userData?.user_metadata?.startDate : null}
-          max={maxDateStr}
-          style={{ marginBottom: "1rem" }}
-          disabled={disableUntilDurationIsSet}
-        />{" "}
-        <br />
-        <textarea
-          value={dailyLogText}
-          onChange={handleTextChange}
-          rows={10}
-          cols={50}
-          required
-          placeholder="Enter your daily log entry here..."
-          disabled={disableUntilDurationIsSet}
-        />
+        <div>
+          <label htmlFor="dateInput">Date</label>
+          <input
+            type="date"
+            id="dateInput"
+            value={selectedDate}
+            onChange={handleDateChange}
+            min={
+              userData?.user_metadata?.startDate !== undefined
+                ? userData?.user_metadata?.startDate
+                : null
+            }
+            max={maxDateStr}
+            style={{ marginBottom: "1rem", width: "100%" }}
+            disabled={disableUntilDurationIsSet}
+          />
+        </div>
+
+        <div>
+          <label htmlFor="entry">Log Entry</label>
+          <textarea
+            value={dailyLogText}
+            id="entry"
+            onChange={handleTextChange}
+            rows={10}
+            cols={50}
+            required
+            placeholder="Enter your daily log entry here..."
+            disabled={disableUntilDurationIsSet}
+          />
+        </div>
         {/* <p>Date: {currentDate.toLocaleDateString()}</p>{" "} */}
-        <p>Date: {selectedDate}</p>{" "}
-        <button type="submit" disabled={disableUntilDurationIsSet}>
+        <p className="dailyLogFormDate">Date: {formatSelectedDate(selectedDate)}</p>{" "}
+
+        {/* <button type="submit" disabled={disableUntilDurationIsSet}>
           Submit Daily Log
-        </button>{" "}
+        </button>{" "} */}
+
+        <Button 
+          variant="secondary"
+          size="large"
+          style={{
+            marginTop: "2rem", 
+            width: "100%"
+          }}
+          disabled={disableUntilDurationIsSet || dailyLogText === ""}
+        >
+          Submit Log
+        </Button>
       </form>
     </div>
   );

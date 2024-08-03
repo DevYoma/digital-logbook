@@ -1,4 +1,56 @@
 .profile{
     min-height: 100vh;
     background: white;
+
+    &Main{
+        max-width: 1300px;
+        margin-inline: auto;
+        min-height: 100vh;
+        background: #F9FAFB;
+
+        &ContentForm{
+            margin-inline: auto;
+            max-width: 518px;
+            // border: 1px solid red;
+
+               
+        @media screen and (max-width: 768px){
+            // display: none;
+            max-width: 90%;
+            margin-inline: auto;
+        }
+        }
+    }
+
+    form{
+        margin-top: 3rem;
+        border: 1px solid #D0D5DD;
+        box-shadow: 0px 16px 24px 0px rgba(16, 25, 40, 0.08);
+        padding: 2rem 1.75rem;  
+        border-radius: 10px;
+        background: white;
+
+        .profileForm{
+            // border: 1px solid red;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .profileFormDiv{
+            display: flex;
+            flex-direction: column;
+            // border: 1px solid red;
+
+            input, select{
+                padding: 10px 5px;
+            }
+
+            label{
+                font-size: 14px;
+                color: #101928;
+                font-weight: 700;
+            }
+        }
+    }
 }

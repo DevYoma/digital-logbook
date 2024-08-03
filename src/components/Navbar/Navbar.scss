@@ -1,0 +1,15 @@
+#nav{
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 1rem;
+    // border: 1px solid red;
+    border-bottom: 0.1px solid rgba(211, 211, 211, 0.3);
+
+    .navMiddle{
+        // border: 1px solid red;
+        display: flex;
+        gap: 1.5rem;
+    }
+}

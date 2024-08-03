@@ -73,7 +73,7 @@ const LogsPage = () => {
     fetchDailyLogs();
   }, []);
 
-  console.log(dailyLogs);
+  // console.log(dailyLogs);
 
   // DELETE LOG ENTRY
   const handleDeleteLogEntry = async (logEntryId: string) => {
@@ -115,7 +115,7 @@ const LogsPage = () => {
     }
   }
 
-  console.log(logData)
+  // console.log(logData)
 
   return (
     <div className="logsPage">

@@ -1,4 +1,26 @@
 .dashboard{
     min-height: 100vh;
     background: white;
+    // border: 1px solid red;
+    
+    &Main{
+        max-width: 1300px;
+        margin-inline: auto;
+        min-height: 100vh;
+        background: #F9FAFB;
+
+        &Content{
+            padding-top: 80px;
+
+            &Form{
+                // border: 1px solid red;
+                
+                @media screen and (max-width: 768px){
+                    // display: none;
+                    max-width: 90%;
+                    margin-inline: auto;
+                }
+            }
+        }
+    }
 }

@@ -51,7 +51,9 @@ const Login = () => {
     } catch (error) {
       setLoading(false);
       setIsAuth(false)
-      alert("Oops! Something went wrong. Please try again");
+      // alert("Oops! Something went wrong. Please try again");
+      // @ts-expect-error("alert error message from Supabase")
+      alert(error?.message)
       // console.log(error?.message)
       console.log(error)
       setUserData(null);
@@ -98,7 +100,7 @@ const Login = () => {
 
           <Button 
             variant="form"
-            disabled={formData.email === "" || formData.password === ""}
+            disabled={formData.email === "" || formData.password === "" || loading}
             style={{
               marginTop: "2.8rem"
             }}

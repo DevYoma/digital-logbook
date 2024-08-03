@@ -1,15 +1,17 @@
 import "./Profile.scss"
 import { useContext, useEffect, useState } from "react";
-import Logo from "../../atoms/Logo/Logo"
 import { UserAuthContext } from "../../context/UserAuthContext";
 import { supabase } from "../../supabase/supabaseClient";
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { User } from "@supabase/supabase-js";
-import { ProfileData } from "../../types/appTypes";
+// import { ProfileData } from "../../types/appTypes";
+import { ProfileData } from "../../types/appTypes"
+import Navbar from "../../components/Navbar/Navbar";
+import Button from "../../components/Button/Button";
 
 const Profile = () => {
   const navigate = useNavigate();
-  const { userData, setUserData, setIsAuth } = useContext(UserAuthContext);
+  const { userData, setUserData } = useContext(UserAuthContext);
 
   // Profile FormData
   const [profileData, setProfileData] = useState<ProfileData>({
@@ -52,19 +54,6 @@ const Profile = () => {
     });
 
     setIsFormDirty(true); // Set form dirty on any change
-  };
-
-  // HANDLE LOGOUT (duplicate)
-  const handleLogout = async () => {
-    const { error } = await supabase.auth.signOut();
-    if (error) {
-      alert("Error logging out");
-      return;
-    }
-
-    setUserData(null);
-    setIsAuth(false);
-    navigate("/login");
   };
 
   // HANDLE USER DATA UPDATE
@@ -127,104 +116,114 @@ const Profile = () => {
     }
   };
 
-  // console.log(userData);
-
   return (
-    <div className="profile" style={{ background: "white" }}>
-      <Logo />
-      <div className="profileHeader">
-        <h2>Profile Page</h2>
-        <form className="profileForm">
-          <div className="profileForm">
-            <div className="profileFormDiv">
-              <label htmlFor="email">Email Address:</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                // required
-                value={profileData.email}
-                // onChange={handleChange}
-                readOnly
-              />
-            </div>
+    <div className="profile">
+      <div className="profileMain">
+        <Navbar />
 
-            <div className="profileFormDiv">
-              <label htmlFor="name">Name:</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                required
-                value={profileData.name}
-                onChange={handleChange}
-              />
-            </div>
+        <div className="profileMainContent">
+          <div className="profileMainContentForm">
+            <form>
+              <div className="profileForm">
+                <div className="profileFormDiv">
+                  <label htmlFor="email">Email Address:</label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    // required
+                    value={profileData.email}
+                    // onChange={handleChange}
+                    readOnly
+                  />
+                </div>
 
-            <div className="profileFormDiv">
-              <label htmlFor="school">School Name:</label>
-              <input
-                type="text"
-                id="school"
-                name="schoolName"
-                required
-                value={profileData.schoolName}
-                onChange={handleChange}
-              />
-            </div>
+                <div className="profileFormDiv">
+                  <label htmlFor="name">Name:</label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    required
+                    value={profileData.name}
+                    onChange={handleChange}
+                  />
+                </div>
 
-            <div className="profileFormDiv">
-              <label htmlFor="department">Department:</label>
-              <input
-                type="text"
-                id="department"
-                name="department"
-                required
-                value={profileData.department}
-                onChange={handleChange}
-              />
-            </div>
+                <div className="profileFormDiv">
+                  <label htmlFor="school">School Name:</label>
+                  <input
+                    type="text"
+                    id="school"
+                    name="schoolName"
+                    required
+                    value={profileData.schoolName}
+                    onChange={handleChange}
+                  />
+                </div>
 
-            <div className="profileFormDiv">
-              <label htmlFor="it-duration">IT Program Duration:</label>
-              <select
-                id="it-duration"
-                name="duration"
-                required
-                value={profileData.duration}
-                onChange={handleChange}
-              >
-                <option value="">{""}</option>
-                <option value="3">3 Months</option>
-                <option value="6">6 Months</option>
-              </select>
-            </div>
+                <div className="profileFormDiv">
+                  <label htmlFor="department">Department:</label>
+                  <input
+                    type="text"
+                    id="department"
+                    name="department"
+                    required
+                    value={profileData.department}
+                    onChange={handleChange}
+                  />
+                </div>
 
-            <div className="profileFormDiv">
-              <label htmlFor="startdate">Start Date</label>
-              <input
-                type="date"
-                name="startDate"
-                id="startdate"
-                required
-                value={profileData.startDate as string}
-                onChange={handleChange}
-              />
-            </div>
+                <div className="profileFormDiv">
+                  <label htmlFor="it-duration">IT Program Duration:</label>
+                  <select
+                    id="it-duration"
+                    name="duration"
+                    required
+                    value={profileData.duration}
+                    onChange={handleChange}
+                  >
+                    <option value="">{""}</option>
+                    <option value="3">3 Months</option>
+                    <option value="6">6 Months</option>
+                  </select>
+                </div>
 
-            {/* <div className="profileFormDiv">
-              <label htmlFor="custom-duration">Custom Duration (Optional):</label>
-              <input type="number" id="custom-duration" name="custom-duration" min="1" />
-            </div> */}
+                <div className="profileFormDiv">
+                  <label htmlFor="startdate">Start Date</label>
+                  <input
+                    type="date"
+                    name="startDate"
+                    id="startdate"
+                    required
+                    value={profileData.startDate as string}
+                    onChange={handleChange}
+                  />
+                </div>
+              </div>
+
+              {/* <button onClick={handleUserDataUpdate} disabled={!isFormDirty}>Update</button> */}
+              {/* <button onClick={() => navigate("/payment")}>Pay via Paystack</button> */}
+            </form>
+            <Button
+              onClick={handleUserDataUpdate}
+              disabled={!isFormDirty}
+              size="large"
+              variant="secondary"
+              style={{
+                marginTop: "2rem",
+                marginBottom: "1rem",
+                width: "100%",
+                marginInline: "auto"
+              }}
+            >
+              Update
+            </Button>
           </div>
-        </form>
-        <Link to={"/"}>Go to Home Page</Link> <br />
-        <button onClick={handleUserDataUpdate} disabled={!isFormDirty}>Update</button>
-        <button onClick={handleLogout}>Logout</button> <br />
-        <button onClick={() => navigate("/payment")}>Pay via Paystack</button>
+        </div>
       </div>
     </div>
   );
 }
-
 export default Profile
+

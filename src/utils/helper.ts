@@ -22,3 +22,23 @@ function getDaySuffix(day: number) {
       return 'th';
   }
 }
+
+export function formatSelectedDate(dateString: string) {
+  const months = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
+
+  const date = new Date(dateString);
+  const year = date.getFullYear();
+  const month = months[date.getMonth()];
+  const day = date.getDate();
+
+  const getOrdinalSuffix = (n: any) => {
+    const s = ["th", "st", "nd", "rd"];
+    const v = n % 100;
+    return s[(v - 20) % 10] || s[v] || s[0];
+  };
+
+  return `${month} ${day}${getOrdinalSuffix(day)}, ${year}`;
+}
