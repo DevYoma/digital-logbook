@@ -2,7 +2,7 @@ import "./Button.scss";
 
 interface ButtonProps {
   children: React.ReactNode;
-  variant?: "primary" | "secondary" | "outline" | "form";
+  variant?: "primary" | "secondary" | "outline" | "form" | "danger" | "save";
   size?: "small" | "medium" | "large"; 
   disabled?: boolean; 
   onClick?: () => void;

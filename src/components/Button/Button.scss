@@ -20,7 +20,7 @@ $outline: #ccc;
   }
 
   &--secondary {
-    background-color: $secondary;
+    background-color: $buttonsecondary;
     color: #fff;
   }
 
@@ -33,7 +33,17 @@ $outline: #ccc;
   &--form{
     background: black;
     color: white;
+  }
 
+  &--danger{
+    // background: red;
+    background: #B22222;
+    color: white;
+  }
+
+  &--save{
+    background: green;
+    color: white;
   }
 
   &--small {

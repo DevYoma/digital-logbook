@@ -209,7 +209,7 @@ const Profile = () => {
               onClick={handleUserDataUpdate}
               disabled={!isFormDirty}
               size="large"
-              variant="secondary"
+              variant="form"
               style={{
                 marginTop: "2rem",
                 marginBottom: "1rem",

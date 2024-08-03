@@ -160,7 +160,8 @@ const DailyLogForm = () => {
         </button>{" "} */}
 
         <Button 
-          variant="secondary"
+          // variant="secondary"
+          variant="form"
           size="large"
           style={{
             marginTop: "2rem", 

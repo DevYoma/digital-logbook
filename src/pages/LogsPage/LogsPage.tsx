@@ -5,8 +5,10 @@ import { supabase } from "../../supabase/supabaseClient";
 import { UserAuthContext } from "../../context/UserAuthContext";
 import { ExistingEntry } from "../../types/appTypes";
 import { formatDate } from "../../utils/helper";
-import { Box, Button, Modal, TextField } from "@mui/material";
+import { Box, Modal, TextField } from "@mui/material";
 import { EditLogContext } from "../../context/EditLogContext";
+import Navbar from "../../components/Navbar/Navbar";
+import Button from "../../components/Button/Button";
 
 const LogsPage = () => {
     const [dailyLogs, setDailyLogs] = useState<ExistingEntry[]>([]);
@@ -16,10 +18,7 @@ const LogsPage = () => {
     // MODAL STATE
     const { logData, setLogData,  openEditModal, handleCloseEditModal, setOpenEditModal } = useContext(EditLogContext);
 
-    // const [date, setDate] = useState(logData?.date || "");
-    // const [modalText, setModalText] = useState(logData !== null ? logData?.text : "");
     const [modalText, setModalText] = useState(logData?.text || "");
-
 
     const handleSubmitModal = async (e: React.FormEvent) => {
       e.preventDefault();
@@ -77,8 +76,12 @@ const LogsPage = () => {
 
   // DELETE LOG ENTRY
   const handleDeleteLogEntry = async (logEntryId: string) => {
+    const isConfirmed = window.confirm("Are you sure you want to delete this log entry?")
+
+    if(!isConfirmed) return
+    
     try {
-      const { error } = await supabase
+      const { error } = await supabase 
         .from('dailyLogs')
         .delete()
         .eq('id', logEntryId); // Replace 'id' with your actual primary key
@@ -106,7 +109,7 @@ const LogsPage = () => {
 
       if (error) throw error;
 
-      console.log("Log entry to edit:", logEntry);
+      // console.log("Log entry to edit:", logEntry);
       setOpenEditModal(true);
       setModalText(logEntry?.text || "");
       setLogData(logEntry);
@@ -119,20 +122,20 @@ const LogsPage = () => {
 
   return (
     <div className="logsPage">
-      <Modal open={openEditModal} onClose={handleCloseEditModal} sx={{ 
-        marginTop: "1.5rem"
-      }}>
+      <Modal 
+        open={openEditModal}
+        onClose={handleCloseEditModal} 
+        sx={{ 
+          marginTop: "1.5rem",
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+        >
         <Box sx={{ width: 500, bgcolor: "background.paper", p: 4 }}>
           {/* <h2>{logData ? "Edit Daily Log" : "Create Daily Log"}</h2> */}
           <h2>Edit Daily Log</h2>
           <form onSubmit={handleSubmitModal}>
-            {/* <TextField
-              fullWidth
-              // label="Date"
-              type="date"
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
-            /> */}
             <TextField
               sx={{ margin: "1rem 0 1rem"}}
               fullWidth
@@ -143,40 +146,52 @@ const LogsPage = () => {
               value={modalText}
               onChange={(e) => setModalText(e.target.value)}
             />
-            <Button type="submit" variant="contained">
-              {/* {logData ? "Update Log" : "Create Log"} */}
+            <Button 
+              variant="save"
+            >
               Update Log
             </Button>
           </form>
         </Box>
       </Modal>
-      <h2>Your Daily Logs</h2>
-      {dailyLogs.map((dailyLog: ExistingEntry) => (
-        <div
-          key={dailyLog.id}
-          className="dailyLogItem"
-          style={{ border: "1px dashed black", marginBottom: "1rem" }}
-        >
-          <p>Date: {formatDate(new Date(dailyLog.date))}</p>
-          {/* <p>Log: {dailyLog.text}</p> */}
-          <p>Log</p>
-          <pre>{dailyLog.text}</pre>
-          {/* <p>UserId: {dailyLog.user_id}</p> */}
-          <button
-            onClick={() => handleEditLogEntry(dailyLog.id)}
-            style={{ marginRight: "1rem" }}
-          >
-            Edit
-          </button>
+      <div className="logsPageMain">
+        <Navbar />
 
-          <button onClick={() => handleDeleteLogEntry(dailyLog.id)}>
-            Delete
-          </button>
+        <div className="logsPageMainContent">
+          {dailyLogs.map((dailyLog: ExistingEntry) => (
+            <div
+              key={dailyLog.id}
+              className="logsPageMainContentItem"
+            >
+              <p>Date: {formatDate(new Date(dailyLog.date))}</p>
+              <p>Log</p>
+              <pre>{dailyLog.text}</pre>
+                <Button 
+                variant="form"
+                size="small"
+                onClick={() => handleEditLogEntry(dailyLog.id)}
+                style={{
+                  marginRight: "1rem"
+                }}
+              >
+                Edit
+              </Button>
+
+              <Button
+                variant="danger"
+                size="small"
+                onClick={() => handleDeleteLogEntry(dailyLog.id)}
+              >
+                Delete
+              </Button>
+            </div>
+          ))}
+          {dailyLogs.length === 0 && (
+            <p>You haven't submitted any daily logs yet.</p>
+          )}
         </div>
-      ))}
-      {dailyLogs.length === 0 && (
-        <p>You haven't submitted any daily logs yet.</p>
-      )}
+      </div>
+
     </div>
   );
 }
