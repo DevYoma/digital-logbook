@@ -1,34 +1,99 @@
-import { render, screen, waitFor } from '@testing-library/react'
-import userEvent from "@testing-library/user-event";
+import { fireEvent, render, screen } from '@testing-library/react'
 import { Login } from '../../src/pages'
 import { BrowserRouter } from 'react-router-dom'
 
-describe('Login', () => {
-    it('should show the Login text as heading', () => {
-        render(<BrowserRouter><Login /></BrowserRouter>)
+// Test for Login Component following TDD approach(how it would be when creating the component)
 
-        const headingText = screen.getByRole('heading', { name: /Login/i });
-        expect(headingText).toBeInTheDocument();
-    })
+test("Email and Password input fields should be empty on page load", () => {
+  render(
+    <BrowserRouter>
+      <Login />
+    </BrowserRouter>
+  )
 
-    it('should change to Loading... onClick of the button', async () => {
-        // userEvent.setup()
-        render(<BrowserRouter><Login /></BrowserRouter>)
+  const emailInputEl = screen.getByPlaceholderText(/email/i);
+  const passwordInputEl = screen.getByPlaceholderText(/password/i);
 
-        
-         const loginButton = screen.getByRole("button", { name: /Login/i }); // Find by name
+  expect(emailInputEl).toHaveValue("");
+  expect(passwordInputEl).toHaveValue("");
+})
 
-         expect(loginButton).toBeInTheDocument();
-         expect(loginButton).toHaveTextContent(/Login/i); // Verify initial content
+test("Login Button should be disabled until user enters value in input elements", () => {
+  render(
+    <BrowserRouter>
+      <Login />
+    </BrowserRouter>
+  );
 
-         await userEvent.click(loginButton);
+  const buttonEl = screen.getByRole("button");
+  expect(buttonEl).toBeDisabled();
+});
 
-         // Assert the changed content after clicking
-         await waitFor(() =>{
-            expect(loginButton).toHaveTextContent(/Login/i)
-            expect(loginButton).toBeInTheDocument()
-         }
-         );
+test("Email input should change value when user types in it", () => {
+  render(
+    <BrowserRouter>
+      <Login />
+    </BrowserRouter>
+  );
 
-    })
+  const emailInputEl = screen.getByPlaceholderText(/email/i);
+  const testValue = "test";
+
+  fireEvent.change(emailInputEl, { target: { value: testValue } });
+  expect(emailInputEl).toHaveValue(testValue);
+});
+
+test("Password input should change value when user types in it", () => {
+  render(
+    <BrowserRouter>
+      <Login />
+    </BrowserRouter>
+  )
+
+  const passwordInputEl = screen.getByPlaceholderText(/password/i);
+  const passwordValue = "password"
+
+  fireEvent.change(passwordInputEl, { target: { value: passwordValue } });
+  expect(passwordInputEl).toHaveValue(passwordValue);
+})
+
+test("Button should not be disabled when user types in email and password input elements", () => {
+  render(
+    <BrowserRouter>
+      <Login />
+    </BrowserRouter>
+  )
+
+  const emailInputEl = screen.getByPlaceholderText(/email/i);
+  const passwordInputEl = screen.getByPlaceholderText(/password/i);
+  const buttonEl = screen.getByRole("button");
+
+  const testValue = "test";
+
+  fireEvent.change(emailInputEl, { target: { value: testValue } });
+  fireEvent.change(passwordInputEl, { target: { value: testValue } });
+
+  expect(buttonEl).not.toBeDisabled();
+})
+
+test("Loading text should be displayed when user clicks on the login button", () => {
+  render(
+    <BrowserRouter>
+      <Login />
+    </BrowserRouter>
+  )
+
+  const emailInputEl = screen.getByPlaceholderText(/email/i);
+  const passwordInputEl = screen.getByPlaceholderText(/password/i);
+  const buttonEl = screen.getByRole("button");
+
+  const testValue = "test";
+
+  fireEvent.change(emailInputEl, { target: { value: testValue } });
+  fireEvent.change(passwordInputEl, { target: { value: testValue } });
+
+  // onClick test simulation
+  fireEvent.click(buttonEl);
+
+  expect(buttonEl).toHaveTextContent(/loading/i);
 })

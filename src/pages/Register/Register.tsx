@@ -37,6 +37,19 @@ const Register = () => {
     });
   };
 
+  // Check if form is valid based on your custom criteria
+  const isFormValid = () => {
+      return (
+          formData.email &&
+          formData.password &&
+          formData.confirmPassword &&
+          formData.studentName &&
+          formData.schoolName &&
+          formData.department &&
+          formData.password === formData.confirmPassword
+      );
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
@@ -94,8 +107,10 @@ const Register = () => {
         <h1 className="registerHeader" data-testid="register-id">
           Create Account
         </h1>
-        <p className="registerText">Get started with Log book entering your information below</p>
-        
+        <p className="registerText">
+          Get started with Log book entering your information below
+        </p>
+
         <form className="registerForm" onSubmit={handleSubmit}>
           <div>
             <label htmlFor="email">Email Address</label>
@@ -117,6 +132,7 @@ const Register = () => {
               id="password"
               name="password"
               placeholder="Password"
+              data-testid="password"
               value={formData.password}
               required
               onChange={handleChange}
@@ -130,6 +146,7 @@ const Register = () => {
               id="confirmPassword"
               name="confirmPassword"
               placeholder="Confirm Password"
+              data-testid="confirm-password"
               value={formData.confirmPassword}
               required
               onChange={handleChange}
@@ -175,11 +192,12 @@ const Register = () => {
             />
           </div>
 
-          <Button 
+          <Button
             variant="form"
             style={{
-              margin: "2rem 0"
+              margin: "2rem 0",
             }}
+            disabled={!isFormValid()}
           >
             {loading ? "Loading..." : "Create Account"}
           </Button>
