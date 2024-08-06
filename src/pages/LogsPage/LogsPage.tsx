@@ -14,6 +14,7 @@ const LogsPage = () => {
     const [dailyLogs, setDailyLogs] = useState<ExistingEntry[]>([]);
     const { userData } = useContext(UserAuthContext);
     // console.log(userData);
+    const [loading, setLoading] = useState(true);
 
     // MODAL STATE
     const { logData, setLogData,  openEditModal, handleCloseEditModal, setOpenEditModal } = useContext(EditLogContext);
@@ -53,6 +54,7 @@ const LogsPage = () => {
 
     // Fetch DailyLogs from Supabase
     const fetchDailyLogs = async () => {
+      setLoading(true)
       try {
           const { data, error } = await supabase
               .from('dailyLogs')
@@ -66,6 +68,8 @@ const LogsPage = () => {
       } catch (error) {
           console.log(error);
           setDailyLogs([])
+      }finally{
+        setLoading(false) 
       }
   };
     useEffect(() => {
@@ -122,22 +126,22 @@ const LogsPage = () => {
 
   return (
     <div className="logsPage">
-      <Modal 
+      <Modal
         open={openEditModal}
-        onClose={handleCloseEditModal} 
-        sx={{ 
+        onClose={handleCloseEditModal}
+        sx={{
           marginTop: "1.5rem",
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
         }}
-        >
+      >
         <Box sx={{ width: 500, bgcolor: "background.paper", p: 4 }}>
           {/* <h2>{logData ? "Edit Daily Log" : "Create Daily Log"}</h2> */}
           <h2>Edit Daily Log</h2>
           <form onSubmit={handleSubmitModal}>
             <TextField
-              sx={{ margin: "1rem 0 1rem"}}
+              sx={{ margin: "1rem 0 1rem" }}
               fullWidth
               label="Daily Log Entry"
               multiline
@@ -146,11 +150,7 @@ const LogsPage = () => {
               value={modalText}
               onChange={(e) => setModalText(e.target.value)}
             />
-            <Button 
-              variant="save"
-            >
-              Update Log
-            </Button>
+            <Button variant="save">Update Log</Button>
           </form>
         </Box>
       </Modal>
@@ -158,40 +158,38 @@ const LogsPage = () => {
         <Navbar />
 
         <div className="logsPageMainContent">
-          {dailyLogs.map((dailyLog: ExistingEntry) => (
-            <div
-              key={dailyLog.id}
-              className="logsPageMainContentItem"
-            >
-              <p>Date: {formatDate(new Date(dailyLog.date))}</p>
-              <p>Log</p>
-              <pre>{dailyLog.text}</pre>
-                <Button 
-                variant="form"
-                size="small"
-                onClick={() => handleEditLogEntry(dailyLog.id)}
-                style={{
-                  marginRight: "1rem"
-                }}
-              >
-                Edit
-              </Button>
-
-              <Button
-                variant="danger"
-                size="small"
-                onClick={() => handleDeleteLogEntry(dailyLog.id)}
-              >
-                Delete
-              </Button>
+          {loading ? (
+            <div className="loadingIndicator">
+              {/* <CircularProgress /> */}Loading...
             </div>
-          ))}
-          {dailyLogs.length === 0 && (
+          ) : dailyLogs.length === 0 ? (
             <p>You haven't submitted any daily logs yet.</p>
+          ) : (
+            dailyLogs.map((dailyLog: ExistingEntry) => (
+              <div key={dailyLog.id} className="logsPageMainContentItem">
+                <p>Date: {formatDate(new Date(dailyLog.date))}</p>
+                <p>Log</p>
+                <pre>{dailyLog.text}</pre>
+                <Button
+                  variant="form"
+                  size="small"
+                  onClick={() => handleEditLogEntry(dailyLog.id)}
+                  style={{ marginRight: "1rem" }}
+                >
+                  Edit
+                </Button>
+                <Button
+                  variant="danger"
+                  size="small"
+                  onClick={() => handleDeleteLogEntry(dailyLog.id)}
+                >
+                  Delete
+                </Button>
+              </div>
+            ))
           )}
         </div>
       </div>
-
     </div>
   );
 }

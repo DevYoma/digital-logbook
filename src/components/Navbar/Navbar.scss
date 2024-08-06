@@ -11,5 +11,16 @@
         // border: 1px solid red;
         display: flex;
         gap: 1.5rem;
+
+        & a{
+            text-decoration: none;
+        }
+
+        & a.active{
+            // color: purple;
+            color: #4318ff;
+            text-decoration: underline;
+            font-weight: bold;
+        }
     }
 }
