@@ -2,6 +2,15 @@
     min-height: 100vh;
     background: white;
 
+    select{
+        // border: 1px solid red;
+        display: flex;
+        margin: 1rem 1rem 0 auto;
+        cursor: pointer;
+        padding: 0.5rem;
+        border-radius: 5px;
+    }
+
     &Main{
         max-width: 1300px;
         margin-inline: auto;
