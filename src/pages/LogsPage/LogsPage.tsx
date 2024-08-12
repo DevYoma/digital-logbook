@@ -1,20 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import "./LogsPage.scss";
 import { supabase } from "../../supabase/supabaseClient";
-import { UserAuthContext } from "../../context/UserAuthContext";
 import { ExistingEntry } from "../../types/appTypes";
 import { formatDate } from "../../utils/helper";
 import { Box, Modal, TextField } from "@mui/material";
 import { EditLogContext } from "../../context/EditLogContext";
 import Navbar from "../../components/Navbar/Navbar";
 import Button from "../../components/Button/Button";
+import { useDailyLogs } from "../../hooks/useDailyLogs";
 
 const LogsPage = () => {
-    const [dailyLogs, setDailyLogs] = useState<ExistingEntry[]>([]);
-    const { userData } = useContext(UserAuthContext);
-    // console.log(userData);
-    const [loading, setLoading] = useState(true);
+    const { dailyLogs, setDailyLogs, loading, fetchDailyLogs, filterLogsByMonth, userDataStartDate, userDataDuration } = useDailyLogs();
+    const [selectedMonth, setSelectedMonth] = useState<number|null>(null);
 
     // MODAL STATE
     const { logData, setLogData,  openEditModal, handleCloseEditModal, setOpenEditModal } = useContext(EditLogContext);
@@ -49,34 +47,7 @@ const LogsPage = () => {
 
       handleCloseEditModal();
     }
-    
     /// END OF MODAL STATE
-
-    // Fetch DailyLogs from Supabase
-    const fetchDailyLogs = async () => {
-      setLoading(true)
-      try {
-          const { data, error } = await supabase
-              .from('dailyLogs')
-              .select('*')
-              .eq('user_id', userData?.id)
-              .order('date', { ascending: false }); // Order by date (latest first)
-      
-          if (error) throw error;
-      
-          setDailyLogs(data);
-      } catch (error) {
-          console.log(error);
-          setDailyLogs([])
-      }finally{
-        setLoading(false) 
-      }
-  };
-    useEffect(() => {
-    fetchDailyLogs();
-  }, []);
-
-  // console.log(dailyLogs);
 
   // DELETE LOG ENTRY
   const handleDeleteLogEntry = async (logEntryId: string) => {
@@ -122,7 +93,42 @@ const LogsPage = () => {
     }
   }
 
-  // console.log(logData)
+  // SELECT FIELD DYNAMIC MONTH GENERATION
+  const generateMonthOptions = (startDate: Date, duration: number) => {
+    const months = [];
+    let currentMonth = startDate.getMonth();  
+    let currentYear = startDate.getFullYear();
+
+    for (let i = 0; i < duration; i++) {
+      const monthDate = new Date(currentYear, currentMonth, 1);
+      const monthName = monthDate.toLocaleDateString("default", {
+        month: "long",
+      });
+      months.push({
+        monthIndex: currentMonth,
+        monthName,
+      });
+
+      currentMonth += 1;
+      if (currentMonth > 11) {
+        currentMonth = 0;
+        currentYear += 1;
+      }
+    }
+
+    return months;
+  };
+
+  const monthOptions = [{ monthIndex: -1, monthName: "All Months" }, ...generateMonthOptions(new Date(userDataStartDate), parseInt(userDataDuration))];
+  // console.log(monthOptions);
+
+  const handleMonthChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const month = parseInt(event.target.value, 10);
+    setSelectedMonth(month);
+  };
+
+  const filteredLogs = selectedMonth !== null && selectedMonth !== -1 ? filterLogsByMonth(selectedMonth) : dailyLogs;
+  
 
   return (
     <div className="logsPage">
@@ -157,6 +163,18 @@ const LogsPage = () => {
       <div className="logsPageMain">
         <Navbar />
 
+        <select
+          onChange={handleMonthChange}
+          value={selectedMonth !== null ? selectedMonth : ""}
+        >
+          {/* <option value="">Select Month</option> */}
+          {monthOptions.map((option) => (
+            <option key={option.monthIndex} value={option.monthIndex}>
+              {option.monthName}
+            </option>
+          ))}
+        </select>
+
         <div className="logsPageMainContent">
           {loading ? (
             <div className="loadingIndicator">
@@ -164,8 +182,11 @@ const LogsPage = () => {
             </div>
           ) : dailyLogs.length === 0 ? (
             <p>You haven't submitted any daily logs yet.</p>
-          ) : (
-            dailyLogs.map((dailyLog: ExistingEntry) => (
+          ) : filteredLogs.length === 0 ? (
+            <p>You don't have any logs for the selected month</p>
+          ):
+          (
+            filteredLogs.map((dailyLog: ExistingEntry) => (
               <div key={dailyLog.id} className="logsPageMainContentItem">
                 <p>Date: {formatDate(new Date(dailyLog.date))}</p>
                 <p>Log</p>

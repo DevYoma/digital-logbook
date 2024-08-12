@@ -1,9 +1,11 @@
-export function formatDate(date: Date) {
+export function formatDate(date: Date, returnInDateFormat?: boolean) {
   const dayOfWeek = date.toLocaleDateString('en-US', { weekday: 'long' }); // Get full weekday name (e.g., Friday)
   const day = date.getDate();
   const month = date.toLocaleString('en-US', { month: 'long' });
   const suffix = getDaySuffix(day);
-  
+  if(returnInDateFormat){
+    return `${day} ${month}`;
+  }
   return `${dayOfWeek}, ${day}${suffix} of ${month}`;
 }
 
