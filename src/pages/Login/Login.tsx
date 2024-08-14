@@ -5,7 +5,7 @@ import { supabase } from "../../supabase/supabaseClient";
 import { useNavigate } from 'react-router-dom';
 import { UserAuthContext } from "../../context/UserAuthContext";
 import Button from "../../components/Button/Button";
-// import useLoggedInRedirect from "../../hooks/useLoggedInRedirect";
+import { CircularProgress } from "@mui/material"
 
 const Login = () => {
   // useLoggedInRedirect();
@@ -40,7 +40,7 @@ const Login = () => {
     try {
       console.table(formData);
       const {data, error } = await supabase.auth.signInWithPassword({
-        email: formData.email,
+        email: formData.email.trim(),
         password: formData.password
       })
       if(error) throw error
@@ -105,7 +105,7 @@ const Login = () => {
               marginTop: "2.8rem",
             }}
           >
-            {loading ? "Loading..." : "Login"}
+            {loading ? <CircularProgress color="inherit" size={"1.5rem"}/> : "Login"}
           </Button>
         </form>
         <p className="loginForgotPassword">

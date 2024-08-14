@@ -5,6 +5,7 @@ import { supabase } from "../../supabase/supabaseClient";
 import { UserAuthContext } from "../../context/UserAuthContext";
 import useLoggedInRedirect from "../../hooks/useLoggedInRedirect";
 import Button from "../../components/Button/Button";
+import { CircularProgress } from "@mui/material"
 
 const Register = () => {
   useLoggedInRedirect();
@@ -64,7 +65,7 @@ const Register = () => {
     try {
       console.table(formData);
       const { data, error } = await supabase.auth.signUp({
-        email: formData.email,
+        email: formData.email.trim(),
         password: formData.password,
         options:{
           // emailRedirectTo: "http://localhost:5173/login",
@@ -199,7 +200,7 @@ const Register = () => {
             }}
             disabled={!isFormValid()}
           >
-            {loading ? "Loading..." : "Create Account"}
+            {loading ? <CircularProgress color="inherit" size={"1.5rem"}/> : "Create Account"}
           </Button>
         </form>
 
