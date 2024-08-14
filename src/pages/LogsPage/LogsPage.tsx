@@ -143,7 +143,6 @@ const LogsPage = () => {
         }}
       >
         <Box sx={{ width: 500, bgcolor: "background.paper", p: 4 }}>
-          {/* <h2>{logData ? "Edit Daily Log" : "Create Daily Log"}</h2> */}
           <h2>Edit Daily Log</h2>
           <form onSubmit={handleSubmitModal}>
             <TextField
@@ -151,8 +150,8 @@ const LogsPage = () => {
               fullWidth
               label="Daily Log Entry"
               multiline
-              rows={4}
-              // value={logData?.text}
+              minRows={4} 
+              maxRows={10} 
               value={modalText}
               onChange={(e) => setModalText(e.target.value)}
             />
@@ -184,8 +183,7 @@ const LogsPage = () => {
             <p>You haven't submitted any daily logs yet.</p>
           ) : filteredLogs.length === 0 ? (
             <p>You don't have any logs for the selected month</p>
-          ):
-          (
+          ) : (
             filteredLogs.map((dailyLog: ExistingEntry) => (
               <div key={dailyLog.id} className="logsPageMainContentItem">
                 <p>Date: {formatDate(new Date(dailyLog.date))}</p>

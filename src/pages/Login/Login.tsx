@@ -68,9 +68,7 @@ const Login = () => {
     <div id="loginContainer">
       <div className="login">
         <h1 className="loginHeader">Login</h1>
-        <p className="loginText">
-          Log in to your account
-        </p>
+        <p className="loginText">Log in to your account</p>
         <form className="loginForm" onSubmit={handleSubmit}>
           <div>
             <label htmlFor="email">EMAIL ADDRESS</label>
@@ -98,25 +96,40 @@ const Login = () => {
             />
           </div>
 
-          <Button 
+          <Button
             variant="form"
-            disabled={formData.email === "" || formData.password === "" || loading}
+            disabled={
+              formData.email === "" || formData.password === "" || loading
+            }
             style={{
-              marginTop: "2.8rem"
+              marginTop: "2.8rem",
             }}
           >
             {loading ? "Loading..." : "Login"}
           </Button>
-
         </form>
         <p className="loginForgotPassword">
-          Forgot your password?
           <Link
             to={"/reset-password"}
+            style={{
+              color: "#4318FF",
+              textDecoration: "none",
+              fontSize: "14px",
+              fontWeight: "bold",
+            }}
+          >
+            Forgot Password?
+          </Link>
+        </p>
+
+        <p className="loginNewUser">
+          New user?
+          <Link
+            to={"/register"}
             style={{ color: "#4318FF", textDecoration: "none" }}
           >
             {" "}
-            Reset it here{" "}
+            Create account{" "}
           </Link>
         </p>
       </div>
