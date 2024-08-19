@@ -7,4 +7,4 @@ export const supabase = createClient(
 );
 
 
-// $/U/u@JheCk9*(9
+// $/U/u@JheCk9*(9  

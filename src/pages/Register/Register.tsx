@@ -116,7 +116,7 @@ const Register = () => {
           <div>
             <label htmlFor="email">Email Address</label>
             <input
-              type="text"
+              type="email"
               id="email"
               name="email"
               placeholder="Email"
@@ -132,7 +132,8 @@ const Register = () => {
               type="password"
               id="password"
               name="password"
-              placeholder="Password"
+              placeholder="Password (6+ characters)"
+              minLength={6}
               data-testid="password"
               value={formData.password}
               required
@@ -147,6 +148,7 @@ const Register = () => {
               id="confirmPassword"
               name="confirmPassword"
               placeholder="Confirm Password"
+              minLength={6}
               data-testid="confirm-password"
               value={formData.confirmPassword}
               required
@@ -200,7 +202,11 @@ const Register = () => {
             }}
             disabled={!isFormValid()}
           >
-            {loading ? <CircularProgress color="inherit" size={"1.5rem"}/> : "Create Account"}
+            {loading ? (
+              <CircularProgress color="inherit" size={"1.5rem"} />
+            ) : (
+              "Create Account"
+            )}
           </Button>
         </form>
 

@@ -73,7 +73,7 @@ const Login = () => {
           <div>
             <label htmlFor="email">EMAIL ADDRESS</label>
             <input
-              type="text"
+              type="email"
               id="email"
               name="email"
               placeholder="Email"
@@ -90,6 +90,7 @@ const Login = () => {
               id="password"
               name="password"
               placeholder="Password"
+              minLength={6}
               value={formData.password}
               required
               onChange={handleChange}
