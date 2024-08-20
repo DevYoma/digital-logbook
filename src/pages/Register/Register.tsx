@@ -62,8 +62,19 @@ const Register = () => {
       return;
     }
 
+    const emailSuffix = formData.email.split('.')[1];
+    const lengthOfEmailSuffix = emailSuffix?.length
+    // console.log(emailSuffix)
+    
+    if(!formData.email.includes(".") || lengthOfEmailSuffix < 2){
+      alert("Email field not valid")
+      setLoading(false);
+      return
+    }
+    
+    // console.table(formData)
     try {
-      console.table(formData);
+      // console.table(formData);
       const { data, error } = await supabase.auth.signUp({
         email: formData.email.trim(),
         password: formData.password,
