@@ -7,12 +7,14 @@ import { useNavigate } from "react-router-dom";
 import { ExistingEntry } from "../../types/appTypes";
 import { formatSelectedDate } from "../../utils/helper";
 import Button from "../Button/Button";
+import { CircularProgress } from "@mui/material";
 
 const DailyLogForm = () => {
   const [dailyLogText, setDailyLogText] = useState("");
   const [selectedDate, setSelectedDate] = useState(
     new Date().toISOString().slice(0, 10)
   ); // Initial date in YYYY-MM-DD format
+  const [loading, setLoading] = useState(false);
   const { userData } = useContext(UserAuthContext);
   const navigate = useNavigate();
 
@@ -33,9 +35,11 @@ const DailyLogForm = () => {
     e: React.FormEvent<HTMLFormElement>
   ) => {
     e.preventDefault();
+    setLoading(true)
 
     if (dailyLogText.length === 0) {
       alert("Text field cannot be empty");
+      setLoading(false);
       return;
     }
 
@@ -49,11 +53,13 @@ const DailyLogForm = () => {
     if (isWeekend) {
       console.error("Error: You cannot submit logs on weekends.");
       alert("Log entries cannot be submitted on weekends!");
+      setLoading(false);
       return;
     }
 
     if (isLoading) {
       console.log("Checking for existing entry...");
+      setLoading(false);
       return; // Prevent submission while data is being fetched
     }
 
@@ -71,6 +77,7 @@ const DailyLogForm = () => {
     if (duplicateEntry) {
       console.error("Error: You can only submit one log per day.");
       alert("You can only submit one log entry per day!");
+      setLoading(false);
       return; // Prevent submission if duplicate exists
     }
 
@@ -87,6 +94,9 @@ const DailyLogForm = () => {
       console.error("Error submitting daily log:", error);
       alert("Error submitting daily log entry");
       // Optionally display an error message to the user
+      setLoading(false);
+    }finally{
+      setLoading(false)
     }
   };
   
@@ -138,7 +148,6 @@ const DailyLogForm = () => {
             disabled={disableUntilDurationIsSet}
           />
         </div>
-
         <div>
           <label htmlFor="entry">Log Entry</label>
           <textarea
@@ -152,24 +161,23 @@ const DailyLogForm = () => {
             disabled={disableUntilDurationIsSet}
           />
         </div>
-        {/* <p>Date: {currentDate.toLocaleDateString()}</p>{" "} */}
-        <p className="dailyLogFormDate">Date: {formatSelectedDate(selectedDate)}</p>{" "}
-
-        {/* <button type="submit" disabled={disableUntilDurationIsSet}>
-          Submit Daily Log
-        </button>{" "} */}
-
-        <Button 
-          // variant="secondary"
+        <p className="dailyLogFormDate">
+          Date: {formatSelectedDate(selectedDate)}
+        </p>{" "}
+        <Button
           variant="form"
           size="large"
           style={{
-            marginTop: "2rem", 
-            width: "100%"
+            marginTop: "2rem",
+            width: "100%",
           }}
-          disabled={disableUntilDurationIsSet || dailyLogText === ""}
+          disabled={disableUntilDurationIsSet || dailyLogText === "" || loading}
         >
-          Submit Log
+          {loading ? (
+            <CircularProgress color="inherit" size={"1.5rem"} />
+          ) : (
+            "Submit Log"
+          )}
         </Button>
       </form>
     </div>
