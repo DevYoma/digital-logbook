@@ -8,6 +8,7 @@ import { UserContextProvider } from './context/UserAuthContext.tsx';
 import ProtectedRoute from './components/ProtectedRoute.tsx';
 import { EditLogProvider } from './context/EditLogContext.tsx';
 import { ThemeProvider } from './context/ThemeContext.tsx';
+import { CharacterCountProvider } from './context/CharacterCountContext.tsx';
 
 const router = createBrowserRouter([
   {
@@ -64,7 +65,9 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <UserContextProvider>
-      <RouterProvider router={router}/>
+      <CharacterCountProvider>
+        <RouterProvider router={router}/>
+      </CharacterCountProvider>
     </UserContextProvider>
   </React.StrictMode>,
 )

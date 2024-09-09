@@ -8,6 +8,7 @@ import { ExistingEntry } from "../../types/appTypes";
 import { formatSelectedDate } from "../../utils/helper";
 import Button from "../Button/Button";
 import { CircularProgress } from "@mui/material";
+import CharacterCount from "../CharacterCount/CharacterCount";
 
 const DailyLogForm = () => {
   const [dailyLogText, setDailyLogText] = useState("");
@@ -15,13 +16,14 @@ const DailyLogForm = () => {
     new Date().toISOString().slice(0, 10)
   ); // Initial date in YYYY-MM-DD format
   const [loading, setLoading] = useState(false);
-  const [characterCount, setCharacterCount] = useState(0);
   const { userData } = useContext(UserAuthContext);
   const navigate = useNavigate();
 
+  console.log()
+
   let isAboveCharacterCount: boolean;
 
-  if(characterCount === 700){
+  if(dailyLogText.length === 700){
     isAboveCharacterCount = true;
   }else{
     isAboveCharacterCount = false;
@@ -34,7 +36,6 @@ const DailyLogForm = () => {
 
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setDailyLogText(e.target.value);
-    setCharacterCount(e.target.value.length);
   };
 
   const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -172,17 +173,7 @@ const DailyLogForm = () => {
             disabled={disableUntilDurationIsSet}
             maxLength={700}
           />
-          <p
-            style={{
-              textAlign: "right",
-              color: "rgba(102, 113, 133, 1)",
-              fontSize: "14px", 
-              fontWeight: "bold",
-              marginTop: "5px"
-            }}
-          >
-            {characterCount}/700
-          </p>
+          <CharacterCount value={dailyLogText} />
         </div>
         <p className="dailyLogFormDate">
           Date: {formatSelectedDate(selectedDate)}
@@ -194,7 +185,7 @@ const DailyLogForm = () => {
             marginTop: "2rem",
             width: "100%",
           }}
-          disabled={disableUntilDurationIsSet || dailyLogText === "" || loading || characterCount === 700}
+          disabled={disableUntilDurationIsSet || dailyLogText === "" || loading || dailyLogText.length === 700}
         >
           {loading ? (
             <CircularProgress color="inherit" size={"1.5rem"} />

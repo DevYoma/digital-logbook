@@ -9,6 +9,7 @@ import { EditLogContext } from "../../context/EditLogContext";
 import Navbar from "../../components/Navbar/Navbar";
 import Button from "../../components/Button/Button";
 import { useDailyLogs } from "../../hooks/useDailyLogs";
+import CharacterCount from "../../components/CharacterCount/CharacterCount";
 
 const LogsPage = () => {
     const { dailyLogs, setDailyLogs, loading, fetchDailyLogs, filterLogsByMonth, userDataStartDate, userDataDuration } = useDailyLogs();
@@ -145,16 +146,19 @@ const LogsPage = () => {
         <Box sx={{ width: 500, bgcolor: "background.paper", p: 4 }}>
           <h2>Edit Daily Log</h2>
           <form onSubmit={handleSubmitModal}>
-            <TextField
-              sx={{ margin: "1rem 0 1rem" }}
-              fullWidth
-              label="Daily Log Entry"
-              multiline
-              minRows={4} 
-              maxRows={10} 
-              value={modalText}
-              onChange={(e) => setModalText(e.target.value)}
-            />
+            <div>
+              <TextField
+                sx={{ margin: "1rem 0 1rem" }}
+                fullWidth
+                label="Daily Log Entry"
+                multiline
+                minRows={4}
+                maxRows={10}
+                value={modalText}
+                onChange={(e) => setModalText(e.target.value)}
+              />
+              <CharacterCount value={modalText} />
+            </div>
             <Button variant="save">Update Log</Button>
           </form>
         </Box>
