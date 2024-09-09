@@ -15,8 +15,17 @@ const DailyLogForm = () => {
     new Date().toISOString().slice(0, 10)
   ); // Initial date in YYYY-MM-DD format
   const [loading, setLoading] = useState(false);
+  const [characterCount, setCharacterCount] = useState(0);
   const { userData } = useContext(UserAuthContext);
   const navigate = useNavigate();
+
+  let isAboveCharacterCount: boolean;
+
+  if(characterCount === 700){
+    isAboveCharacterCount = true;
+  }else{
+    isAboveCharacterCount = false;
+  }
 
   const { existingEntry, isLoading, error } = useCheckExistingEntry(
     userData,
@@ -25,6 +34,7 @@ const DailyLogForm = () => {
 
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setDailyLogText(e.target.value);
+    setCharacterCount(e.target.value.length);
   };
 
   const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -151,6 +161,7 @@ const DailyLogForm = () => {
         <div>
           <label htmlFor="entry">Log Entry</label>
           <textarea
+            style={isAboveCharacterCount ? { border: "1px solid red", outlineColor: "red" } : undefined}
             value={dailyLogText}
             id="entry"
             onChange={handleTextChange}
@@ -159,7 +170,19 @@ const DailyLogForm = () => {
             required
             placeholder="Enter your daily log entry here..."
             disabled={disableUntilDurationIsSet}
+            maxLength={700}
           />
+          <p
+            style={{
+              textAlign: "right",
+              color: "rgba(102, 113, 133, 1)",
+              fontSize: "14px", 
+              fontWeight: "bold",
+              marginTop: "5px"
+            }}
+          >
+            {characterCount}/700
+          </p>
         </div>
         <p className="dailyLogFormDate">
           Date: {formatSelectedDate(selectedDate)}
@@ -171,7 +194,7 @@ const DailyLogForm = () => {
             marginTop: "2rem",
             width: "100%",
           }}
-          disabled={disableUntilDurationIsSet || dailyLogText === "" || loading}
+          disabled={disableUntilDurationIsSet || dailyLogText === "" || loading || characterCount === 700}
         >
           {loading ? (
             <CircularProgress color="inherit" size={"1.5rem"} />

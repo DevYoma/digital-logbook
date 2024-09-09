@@ -55,7 +55,8 @@
             // margin: 1rem 0;
             padding: 0.5rem;
             // border: 1px solid var(--primary-color);
-            outline: 1px solid hsl(203, 30%, 26%);
+            // outline: 1px solid hsl(203, 30%, 26%);
+            outline: inherit;
             border-radius: 5px;
 
             &:not(:placeholder-shown):valid{

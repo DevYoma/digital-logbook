@@ -4,6 +4,7 @@ import "./ResetPassword.scss";
 import { supabase } from "../../supabase/supabaseClient";
 import useLoggedInRedirect from "../../hooks/useLoggedInRedirect";
 import Button from "../../components/Button/Button";
+import { CircularProgress } from "@mui/material";
 
 const ResetPassword = () => {
   useLoggedInRedirect();
@@ -46,7 +47,7 @@ const ResetPassword = () => {
     <div id="resetPasswordContainer">
       <div className="resetPassword">
         <h2 className="resetPasswordHeader">Reset Password</h2>
-        <p>A reset password OTP will be sent to your email address</p>
+        <p>A reset password OTP link will be sent to your email address</p>
 
         <form className="resetPasswordForm" onSubmit={handleSubmit}>
           <input
@@ -57,16 +58,16 @@ const ResetPassword = () => {
             onChange={(e) => setEmail(e.target.value)}
           />
 
-          <Button
-            variant="form"
-            disabled={isSubmitting || email === ""}
-          >
-            {isSubmitting ? "Loading..." : "Submit"}
+          <Button variant="form" disabled={isSubmitting || email === ""}>
+            {isSubmitting ? (
+              <CircularProgress color="inherit" size={"1.5rem"} />
+            ) : (
+              "Submit"
+            )}
           </Button>
         </form>
       </div>
     </div>
-  
   );
 };
 
