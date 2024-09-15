@@ -214,7 +214,7 @@ const Register = () => {
             disabled={!isFormValid()}
           >
             {loading ? (
-              <CircularProgress color="inherit" size={"1.5rem"} />
+              <CircularProgress color="inherit" size={"1.5rem"} data-testid="registerLoadingSpinner"/>
             ) : (
               "Create Account"
             )}

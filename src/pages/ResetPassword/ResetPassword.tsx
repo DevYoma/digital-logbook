@@ -52,7 +52,7 @@ const ResetPassword = () => {
         <form className="resetPasswordForm" onSubmit={handleSubmit}>
           <input
             type="email"
-            placeholder="Email Address"
+            placeholder="Enter your Email Address"
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -60,7 +60,7 @@ const ResetPassword = () => {
 
           <Button variant="form" disabled={isSubmitting || email === ""}>
             {isSubmitting ? (
-              <CircularProgress color="inherit" size={"1.5rem"} />
+              <CircularProgress color="inherit" size={"1.5rem"} data-testid="loadingSpinner"/>
             ) : (
               "Submit"
             )}
