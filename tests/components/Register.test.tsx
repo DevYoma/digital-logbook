@@ -90,7 +90,7 @@ describe("Register Component", () => {
     expect(buttonEl).not.toBeDisabled();
   })
 
-  test("Loading text should be displayed when user clicks on the login button", () => {
+  test("Loading text should be displayed when user clicks on the Create Account button", () => {
     render(
         <BrowserRouter>
             <Register />
@@ -115,6 +115,9 @@ describe("Register Component", () => {
 
     fireEvent.click(buttonEl);
 
-    expect(buttonEl).toHaveTextContent(/loading/i);
+    // expect(buttonEl).toHaveTextContent(/loading/i);
+    expect(screen.getByTestId("registerLoadingSpinner")).toBeInTheDocument();
   });
 });
+
+// expect(screen.getByTestId("loadingSpinner")).toBeInTheDocument();
