@@ -106,7 +106,15 @@ const Login = () => {
               marginTop: "2.8rem",
             }}
           >
-            {loading ? <CircularProgress color="inherit" size={"1.5rem"}/> : "Login"}
+            {loading ? (
+              <CircularProgress
+                color="inherit"
+                size={"1.5rem"}
+                data-testid="loadingSpinner"
+              />
+            ) : (
+              "Login"
+            )}
           </Button>
         </form>
         <p className="loginForgotPassword">
