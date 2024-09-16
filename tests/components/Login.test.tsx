@@ -77,7 +77,7 @@ describe("Login Component", () => {
     expect(buttonEl).not.toBeDisabled();
   });
 
-  test("Loading text should be displayed when user clicks on the login button", () => {
+  test("Loading Spinner should be displayed when user clicks on the login button", () => {
     render(
       <BrowserRouter>
         <Login />
@@ -88,7 +88,7 @@ describe("Login Component", () => {
     const passwordInputEl = screen.getByPlaceholderText(/password/i);
     const buttonEl = screen.getByRole("button");
 
-    const testValue = "test";
+    const testValue = "test@sample.com";
 
     fireEvent.change(emailInputEl, { target: { value: testValue } });
     fireEvent.change(passwordInputEl, { target: { value: testValue } });
@@ -96,6 +96,7 @@ describe("Login Component", () => {
     // onClick test simulation
     fireEvent.click(buttonEl);
 
-    expect(buttonEl).toHaveTextContent(/loading/i);
+    // expect(buttonEl).toHaveTextContent(/loading/i);
+    expect(screen.getByTestId("loadingSpinner")).toBeInTheDocument();
   });
 });
