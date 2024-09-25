@@ -82,32 +82,29 @@ describe("Register Component", () => {
     expect(buttonEl).not.toBeDisabled();
   })
 
-  // test("Loading Spinner should be displayed when user clicks on the Create Account button", () => {
-  //   renderComponent()
+  test("Loading Spinner should be displayed when user clicks on the Create Account button", async () => {
+    renderComponent()
 
-  //   const emailInputEl = screen.getByPlaceholderText(/email/i);
-  //   const passwordInputEl = screen.getByTestId("password");
-  //   const confirmPasswordInputEl = screen.getByTestId("confirm-password");
-  //   const studentNameInputEl = screen.getByPlaceholderText(/student name/i);
-  //   const schoolNameInputEl = screen.getByPlaceholderText(/school name/i);
-  //   const departmentInputEl = screen.getByPlaceholderText(/department/i);
-  //   const buttonEl = screen.getByRole("button")
+    const emailInputEl = screen.getByPlaceholderText(/email/i);
+    const passwordInputEl = screen.getByTestId("password");
+    const confirmPasswordInputEl = screen.getByTestId("confirm-password");
+    const studentNameInputEl = screen.getByPlaceholderText(/student name/i);
+    const schoolNameInputEl = screen.getByPlaceholderText(/school name/i);
+    const departmentInputEl = screen.getByPlaceholderText(/department/i);
+    const buttonEl = screen.getByRole("button")
 
-  //   const testValue = "test";
-  //   fireEvent.change(emailInputEl, { target: { value: testValue } });
-  //   fireEvent.change(passwordInputEl, { target: { value: testValue } });
-  //   fireEvent.change(confirmPasswordInputEl, { target: { value: testValue } });
-  //   fireEvent.change(studentNameInputEl, { target: { value: testValue } });
-  //   fireEvent.change(schoolNameInputEl, { target: { value: testValue } });
-  //   fireEvent.change(departmentInputEl, { target: { value: testValue } });
+    const testValue = "test";
+    fireEvent.change(emailInputEl, { target: { value: testValue } });
+    fireEvent.change(passwordInputEl, { target: { value: testValue } });
+    fireEvent.change(confirmPasswordInputEl, { target: { value: testValue } });
+    fireEvent.change(studentNameInputEl, { target: { value: testValue } });
+    fireEvent.change(schoolNameInputEl, { target: { value: testValue } });
+    fireEvent.change(departmentInputEl, { target: { value: testValue } });
 
-  //   fireEvent.click(buttonEl);
+    fireEvent.click(buttonEl);
 
-  //   // expect(buttonEl).toHaveTextContent(/loading/i);
-  //   // await waitFor(() => {
-  //     expect(screen.getByTestId("loadingSpinner")).toBeInTheDocument();
-  //   // });
-  // });
+    const loadingSpinnerElement = await screen.findByTestId("loadingSpinner")
+    expect(loadingSpinnerElement).toBeInTheDocument();
+    // expect(screen.getByTestId("loadingSpinner")).toBeInTheDocument();
+  });
 });
-
-// expect(screen.getByTestId("loadingSpinner")).toBeInTheDocument();
