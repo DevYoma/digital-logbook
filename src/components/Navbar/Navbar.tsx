@@ -32,7 +32,7 @@ const Navbar = () => {
         <NavLink to="/dashboard">Home</NavLink>
         <NavLink to="/profile">Profile</NavLink>
         <NavLink to="/logs">Logs</NavLink>
-        {/* <Link to="/calendar">Calendar</Link> */}
+        {/* <NavLink to="/summary">Summaries</NavLink> */}
       </div>
 
       <div className="navRight">

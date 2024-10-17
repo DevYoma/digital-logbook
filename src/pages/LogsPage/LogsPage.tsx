@@ -3,13 +3,14 @@ import { useContext, useState } from "react";
 import "./LogsPage.scss";
 import { supabase } from "../../supabase/supabaseClient";
 import { ExistingEntry } from "../../types/appTypes";
-import { formatDate } from "../../utils/helper";
+import { formatDate, generateMonthOptions } from "../../utils/helper";
 import { Box, Modal, TextField } from "@mui/material";
 import { EditLogContext } from "../../context/EditLogContext";
 import Navbar from "../../components/Navbar/Navbar";
 import Button from "../../components/Button/Button";
 import { useDailyLogs } from "../../hooks/useDailyLogs";
 import CharacterCount from "../../components/CharacterCount/CharacterCount";
+import MonthSelect from "../../components/MonthSelect/MonthSelect";
 
 const LogsPage = () => {
     const { dailyLogs, setDailyLogs, loading, fetchDailyLogs, filterLogsByMonth, userDataStartDate, userDataDuration } = useDailyLogs();
@@ -94,32 +95,6 @@ const LogsPage = () => {
     }
   }
 
-  // SELECT FIELD DYNAMIC MONTH GENERATION
-  const generateMonthOptions = (startDate: Date, duration: number) => {
-    const months = [];
-    let currentMonth = startDate.getMonth();  
-    let currentYear = startDate.getFullYear();
-
-    for (let i = 0; i < duration; i++) {
-      const monthDate = new Date(currentYear, currentMonth, 1);
-      const monthName = monthDate.toLocaleDateString("default", {
-        month: "long",
-      });
-      months.push({
-        monthIndex: currentMonth,
-        monthName,
-      });
-
-      currentMonth += 1;
-      if (currentMonth > 11) {
-        currentMonth = 0;
-        currentYear += 1;
-      }
-    }
-
-    return months;
-  };
-
   const monthOptions = [{ monthIndex: -1, monthName: "All Months" }, ...generateMonthOptions(new Date(userDataStartDate), parseInt(userDataDuration))];
   // console.log(monthOptions);
 
@@ -166,17 +141,22 @@ const LogsPage = () => {
       <div className="logsPageMain">
         <Navbar />
 
-        <select
+        {/* <select
           onChange={handleMonthChange}
           value={selectedMonth !== null ? selectedMonth : ""}
         >
-          {/* <option value="">Select Month</option> */}
           {monthOptions.map((option) => (
             <option key={option.monthIndex} value={option.monthIndex}>
               {option.monthName}
             </option>
           ))}
-        </select>
+        </select> */}
+
+        <MonthSelect 
+          handleMonthChange={handleMonthChange}
+          monthOptions={monthOptions}
+          selectedMonth={selectedMonth}
+        />
 
         <div className="logsPageMainContent">
           {loading ? (

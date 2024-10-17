@@ -6,3 +6,4 @@ export { default as Profile } from './Profile/Profile'
 export { default as LogsPage } from './LogsPage/LogsPage'
 export { default as Payment } from './Payment/Payment';
 export { default as Dashboard } from './Dashboard/Dashboard';
+export { default as Summary } from './Summary/Summary'

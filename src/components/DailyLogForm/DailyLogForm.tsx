@@ -19,8 +19,6 @@ const DailyLogForm = () => {
   const { userData } = useContext(UserAuthContext);
   const navigate = useNavigate();
 
-  console.log()
-
   let isAboveCharacterCount: boolean;
 
   if(dailyLogText.length === 700){
