@@ -44,3 +44,29 @@ export function formatSelectedDate(dateString: string) {
 
   return `${month} ${day}${getOrdinalSuffix(day)}, ${year}`;
 }
+
+  // SELECT FIELD DYNAMIC MONTH GENERATION
+export const generateMonthOptions = (startDate: Date, duration: number) => {
+   const months = [];
+   let currentMonth = startDate.getMonth();
+   let currentYear = startDate.getFullYear();
+
+   for (let i = 0; i < duration; i++) {
+     const monthDate = new Date(currentYear, currentMonth, 1);
+     const monthName = monthDate.toLocaleDateString("default", {
+       month: "long",
+     });
+     months.push({
+       monthIndex: currentMonth,
+       monthName,
+     });
+
+     currentMonth += 1;
+     if (currentMonth > 11) {
+       currentMonth = 0;
+       currentYear += 1;
+     }
+   }
+
+   return months;
+ };

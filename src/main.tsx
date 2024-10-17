@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import './index.scss'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import { Dashboard, Login, LogsPage, NewPassword, Payment, Profile, Register, ResetPassword } from './pages/index.ts';
+import { Dashboard, Login, LogsPage, NewPassword, Payment, Profile, Register, ResetPassword, Summary } from './pages/index.ts';
 import { UserContextProvider } from './context/UserAuthContext.tsx';
 import ProtectedRoute from './components/ProtectedRoute.tsx';
 import { EditLogProvider } from './context/EditLogContext.tsx';
@@ -34,6 +34,10 @@ const router = createBrowserRouter([
         path: "/payment",
         element: <Payment />,
       },
+      {
+        path: "/summary", 
+        element: <Summary />
+      }
     ],
   },
   {

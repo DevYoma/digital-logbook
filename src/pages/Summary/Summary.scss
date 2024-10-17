@@ -1,0 +1,15 @@
+.summary{
+    min-height: 100vh;
+    background: white;
+
+    &Main{
+        max-width: 1300px;
+        margin-inline: auto;
+        min-height: 100vh;
+        background: #F9FAFB;
+
+        &Content{
+            
+        }
+    }
+}
