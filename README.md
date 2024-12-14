@@ -6,7 +6,7 @@ This project aims to help students keep track of their daily activities, events,
 ## About the Project
 
 ### Motivation
-As an intern myself, I experienced the difficulty of recalling past tasks and activities after a few months. This project's purpose is to provide students with a centralized platform to document their internship journey for future reference.
+As a former college intern, I experienced the difficulty of recalling past tasks and activities after a few months. This project's purpose is to provide students with a centralized platform to document their internship journey for future reference.
 
 ### Why I Built It
 This project addresses a real-life problem faced by many interns. Having a digital logbook allows students to maintain an organized record of their internship experience.
