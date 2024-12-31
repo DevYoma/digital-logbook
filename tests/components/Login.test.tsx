@@ -88,10 +88,11 @@ describe("Login Component", () => {
     const passwordInputEl = screen.getByPlaceholderText(/password/i);
     const buttonEl = screen.getByRole("button");
 
-    const testValue = "test@sample.com";
+    const emailTestValue = "lawrenceyoma@gmail.com";
+    const passwordTestValue = "somewrongpassword"
 
-    fireEvent.change(emailInputEl, { target: { value: testValue } });
-    fireEvent.change(passwordInputEl, { target: { value: testValue } });
+    fireEvent.change(emailInputEl, { target: { value: emailTestValue } });
+    fireEvent.change(passwordInputEl, { target: { value: passwordTestValue } });
 
     // onClick test simulation
     fireEvent.click(buttonEl);

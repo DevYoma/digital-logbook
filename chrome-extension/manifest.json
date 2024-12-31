@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "Digital Logbook Extension",
+  "version": "1.0",
+  "description": "Quickly log daily entries, access and update your Digital Logbook.",
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+    }
+  },
+  "permissions": [
+    "storage",
+    "activeTab"
+  ]
+}

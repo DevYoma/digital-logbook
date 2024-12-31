@@ -17,7 +17,7 @@ const Button = ({ children, size="medium", variant="primary", disabled, onClick,
       disabled={disabled}
       className={buttonClasses}
       style={style}
-    >
+    > 
         {children}
     </button>
   )
